@@ -1,0 +1,1 @@
+params.require(:feedback).permit(:paciente_id, :cuidador_id, :data, :nivel_satisfacao, :comentarios, :reclamacao)

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Apoiar System</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Incluindo arquivos de estilos -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'custom', media: 'all' %> <!-- Adiciona o custom.css -->
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <% if logged_in? %>
+          <li><%= link_to "Logout", logout_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "Login", login_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <%= yield %>
+  </body>
+</html>

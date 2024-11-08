@@ -1,0 +1,11 @@
+<h1>Usuários</h1>
+<%= link_to 'Novo Usuário', new_usuario_path %>
+<ul>
+  <% @usuarios.each do |usuario| %>
+    <li>
+      <%= link_to usuario.nome, usuario %>
+      <%= link_to 'Editar', edit_usuario_path(usuario) %>
+      <%= link_to 'Excluir', usuario, method: :delete, data: { confirm: 'Tem certeza?' } %>
+    </li>
+  <% end %>
+</ul>

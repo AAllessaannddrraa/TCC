@@ -1,0 +1,9 @@
+pt:
+  hello: "Olá Alessandra"
+  flash:
+    notice:
+      created: "%{model} foi criado com sucesso."
+      updated: "%{model} foi atualizado com sucesso."
+      deleted: "%{model} foi excluído com sucesso."
+    alert:
+      error: "Algo deu errado."
