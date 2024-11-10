@@ -1,0 +1,41 @@
+<%= form_with(model: turno, local: true) do |form| %>
+  <% if turno.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(turno.errors.count, "erro") %> proibiu este turno de ser salvo:</h2>
+      <ul>
+        <% turno.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :data %>
+    <%= form.date_field :data %>
+  </div>
+
+  <div>
+    <%= form.label :hora_inicio, "Hora de Início" %>
+    <%= form.time_field :hora_inicio %>
+  </div>
+
+  <div>
+    <%= form.label :hora_fim, "Hora de Fim" %>
+    <%= form.time_field :hora_fim %>
+  </div>
+
+  <div>
+    <%= form.label :cuidador_id, "Cuidador" %>
+    <%= form.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
+  </div>
+
+  <div>
+    <%= form.label :paciente_id, "Paciente" %>
+    <%= form.collection_select :paciente_id, Paciente.all, :id, :nome %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

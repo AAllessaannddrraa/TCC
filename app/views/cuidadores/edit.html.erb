@@ -1,0 +1,3 @@
+<h1><%= action_name == 'new' ? 'Novo Cuidador' : 'Editar Cuidador' %></h1>
+<%= render 'form', cuidador: @cuidador %>
+<%= link_to 'Voltar', cuidadores_path %>

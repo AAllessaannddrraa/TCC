@@ -1,0 +1,9 @@
+<h1>Detalhes do Turno</h1>
+<p><strong>Data:</strong> <%= @turno.data %></p>
+<p><strong>Hora de Início:</strong> <%= @turno.hora_inicio %></p>
+<p><strong>Hora de Fim:</strong> <%= @turno.hora_fim %></p>
+<p><strong>Cuidador:</strong> <%= @turno.cuidador.nome %></p>
+<p><strong>Paciente:</strong> <%= @turno.paciente.nome %></p>
+
+<%= link_to 'Editar', edit_turno_path(@turno) %> |
+<%= link_to 'Voltar', turnos_path %>

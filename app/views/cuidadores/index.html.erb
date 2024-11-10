@@ -1,0 +1,25 @@
+<h1>Lista de Cuidadores</h1>
+<%= link_to 'Novo Cuidador', new_cuidador_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Contato</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cuidadores.each do |cuidador| %>
+      <tr>
+        <td><%= cuidador.nome %></td>
+        <td><%= cuidador.numero_contato %></td>
+        <td>
+          <%= link_to 'Mostrar', cuidador_path(cuidador) %> |
+          <%= link_to 'Editar', edit_cuidador_path(cuidador) %> |
+          <%= link_to 'Excluir', cuidador_path(cuidador), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,6 @@
+<h1>Detalhes do Cuidador</h1>
+<p><strong>Nome:</strong> <%= @cuidador.nome %></p>
+<p><strong>Contato:</strong> <%= @cuidador.numero_contato %></p>
+
+<%= link_to 'Editar', edit_cuidador_path(@cuidador) %> |
+<%= link_to 'Voltar', cuidadores_path %>

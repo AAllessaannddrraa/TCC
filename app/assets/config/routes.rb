@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Defina o root do sistema para o index geral
+  root 'home#index'
+
   # Rotas para Cuidadores
   resources :cuidadores
 
