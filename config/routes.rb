@@ -14,4 +14,3 @@ Rails.application.routes.draw do
   post 'login', to: 'sessoes#create'
   delete 'logout', to: 'sessoes#destroy'
   end
-end
