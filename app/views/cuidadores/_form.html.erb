@@ -1,26 +1,26 @@
-<%= form_with(model: cuidador, local: true) do |form| %>
-  <% if cuidador.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(cuidador.errors.count, "erro") %> proibiu este cuidador de ser salvo:</h2>
+<%= form_with(model: @cuidador, local: true, class: 'form-horizontal') do |form| %>
+  <% if @cuidador.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@cuidador.errors.count, "erro") %> impediram que este cuidador fosse salvo:</h4>
       <ul>
-        <% cuidador.errors.full_messages.each do |message| %>
+        <% @cuidador.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
+  <div class="mb-3">
+    <%= form.label :nome, class: 'form-label' %>
+    <%= form.text_field :nome, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :numero_contato %>
-    <%= form.text_field :numero_contato %>
+  <div class="mb-3">
+    <%= form.label :numero_contato, class: 'form-label' %>
+    <%= form.text_field :numero_contato, class: 'form-control' %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

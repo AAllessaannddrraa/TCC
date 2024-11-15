@@ -1,0 +1,26 @@
+<h1>Lista de Turnos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Hora Início</th>
+      <th>Hora Fim</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @turnos.each do |turno| %>
+      <tr>
+        <td><%= turno.data %></td>
+        <td><%= turno.hora_inicio %></td>
+        <td><%= turno.hora_fim %></td>
+        <td>
+          <%= link_to 'Mostrar', turno %>
+          <%= link_to 'Editar', edit_turno_path(turno) %>
+          <%= link_to 'Excluir', turno, method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Novo Turno', new_turno_path %>

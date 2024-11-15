@@ -1,12 +1,13 @@
+# app/controllers/turnos_controller.rb
 class TurnosController < ApplicationController
   before_action :set_turno, only: %i[show edit update destroy]
+  before_action :require_login # Adicionando proteção de login para acesso
 
   def index
     @turnos = Turno.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @turno = Turno.new
@@ -15,26 +16,30 @@ class TurnosController < ApplicationController
   def create
     @turno = Turno.new(turno_params)
     if @turno.save
-      redirect_to @turno, notice: 'Turno criado com sucesso.'
+      flash[:success] = 'Turno criado com sucesso.'
+      redirect_to @turno
     else
+      flash.now[:danger] = 'Erro ao criar turno. Verifique os campos.'
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @turno.update(turno_params)
-      redirect_to @turno, notice: 'Turno atualizado com sucesso.'
+      flash[:success] = 'Turno atualizado com sucesso.'
+      redirect_to @turno
     else
+      flash.now[:danger] = 'Erro ao atualizar turno.'
       render :edit
     end
   end
 
   def destroy
     @turno.destroy
-    redirect_to turnos_url, notice: 'Turno excluído com sucesso.'
+    flash[:success] = 'Turno excluído com sucesso.'
+    redirect_to turnos_url
   end
 
   private

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :turnos
 
   # Rotas para Sessões (login/logout)
-  get 'login', to: 'sessoes#new'    # Página de login
+  get 'login', to: 'sessoes#new' # Página de login
   post 'login', to: 'sessoes#create' # Ação de criação de sessão (login)
   delete 'logout', to: 'sessoes#destroy' # Ação de logout
 

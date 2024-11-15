@@ -1,0 +1,10 @@
+<%= form_with(model: @feedback, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :nivel_satisfacao %>
+    <%= form.number_field :nivel_satisfacao %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,3 +1,5 @@
-<h1><%= action_name == 'new' ? 'Novo Cuidador' : 'Editar Cuidador' %></h1>
-<%= render 'form', cuidador: @cuidador %>
-<%= link_to 'Voltar', cuidadores_path %>
+<div class="container mt-4">
+  <h1>Editar Cuidador</h1>
+  <%= render 'form', cuidador: @cuidador %>
+  <%= link_to 'Voltar', cuidadores_path, class: 'btn btn-secondary mt-2' %>
+</div>
