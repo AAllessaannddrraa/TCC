@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-    root to: "articles#index"
-    resources :articles, except: :index
+  root to: 'articles#index'
+  resources :articles, except: :index
 
-    resources :pacientes
+  resources :pacientes
   resources :cuidadores
   resources :turnos
   resources :feedbacks
@@ -13,4 +13,4 @@ Rails.application.routes.draw do
   get 'login', to: 'sessoes#new'
   post 'login', to: 'sessoes#create'
   delete 'logout', to: 'sessoes#destroy'
-  end
+end

@@ -54,7 +54,7 @@ class UsuariosController < ApplicationController
   def require_login
     return if logged_in?
 
-      flash[:danger] = 'Por favor, faça login.'
-      redirect_to login_url
+    flash[:danger] = 'Por favor, faça login.'
+    redirect_to login_url
   end
 end
