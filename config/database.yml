@@ -9,6 +9,10 @@ default: &default
 development:
   <<: *default
   database: apoiar_system_development
+  username: apoiar_system
+  password: <sua_senha_correta>
+  host: localhost
+
 
 test:
   <<: *default
