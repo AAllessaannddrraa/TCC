@@ -1,24 +1,30 @@
 # app/controllers/sessoes_controller.rb
 class SessoesController < ApplicationController
-  def new
-    # Página de login
-  end
-
-  def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:senha])
-      log_in user
-      flash[:success] = 'Login realizado com sucesso!'
-      redirect_to root_path
+  def criar
+    usuario = Usuario.find_by(email: params[:email])
+    if usuario&.authenticate(params[:password])
+      session[:usuario_id] = usuario.id
+      # Envia o email com o código de verificação 2FA
+      UsuarioMailer.otp_email(usuario, usuario.current_otp).deliver_now
+      redirect_to verificar_2fa_path # Redireciona para a página de verificação de 2FA
     else
-      flash.now[:danger] = 'Combinação de email/senha inválida'
-      render :new
+      flash[:alert] = 'Email ou senha inválidos.'
+      render :novo
     end
   end
 
-  def destroy
-    log_out if logged_in?
-    flash[:success] = 'Logout realizado com sucesso.'
-    redirect_to root_url
+  def verificar_2fa
+    @usuario = Usuario.find(session[:usuario_id])
+  end
+
+  def confirmar_2fa
+    @usuario = Usuario.find(session[:usuario_id])
+    if @usuario.validate_otp(params[:otp_code])
+      flash[:notice] = 'Login realizado com sucesso.'
+      redirect_to root_path
+    else
+      flash[:alert] = 'Código de verificação inválido.'
+      render :verificar_2fa
+    end
   end
 end

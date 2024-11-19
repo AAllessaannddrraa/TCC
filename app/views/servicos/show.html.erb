@@ -1,0 +1,11 @@
+<!-- app/views/servicos/mostrar.html.erb -->
+<h1>Detalhes do Serviço</h1>
+<p>Descrição: <%= @servico.descricao %></p>
+<p>Data e Hora: <%= @servico.data_hora %></p>
+<p>Status: <%= @servico.status %></p>
+
+<% if current_usuario.role == 'cuidador' && @servico.pendente? %>
+  <%= link_to 'Confirmar', confirmar_servico_path(@servico), method: :patch, data: { confirm: 'Tem certeza que deseja confirmar este serviço?' } %>
+  <%= link_to 'Rejeitar', rejeitar_servico_path(@servico), method: :patch, data: { confirm: 'Tem certeza que deseja rejeitar este serviço?' } %>
+<% end %>
+<%= link_to 'Voltar', servicos_path %>

@@ -1,60 +1,56 @@
 # app/controllers/usuarios_controller.rb
 class UsuariosController < ApplicationController
-  before_action :set_user, only: %i[show edit update destroy]
-  before_action :require_login, except: %i[new create]
+  before_action :encontrar_usuario, only: [:mostrar, :editar, :atualizar, :destruir]
+  before_action :exigir_login, except: [:novo, :criar]
 
   def index
-    @usuarios = User.all
+    @usuarios = Usuario.all
   end
 
-  def show; end
-
-  def new
-    @user = User.new
+  def mostrar
   end
 
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      log_in @user
-      flash[:success] = 'Usuário criado com sucesso!'
-      redirect_to @user
+  def novo
+    @usuario = Usuario.new
+  end
+
+  def criar
+    @usuario = Usuario.new(usuario_params)
+    if @usuario.save
+      flash[:notice] = 'Usuário criado com sucesso. Aguardando aprovação do administrador.'
+      redirect_to usuarios_path
     else
-      render :new
+      flash[:alert] = 'Erro ao criar usuário.'
+      render :novo
     end
   end
 
-  def edit; end
+  def editar
+  end
 
-  def update
-    if @user.update(user_params)
-      flash[:success] = 'Usuário atualizado com sucesso!'
-      redirect_to @user
+  def atualizar
+    if @usuario.update(usuario_params)
+      flash[:notice] = 'Perfil atualizado com sucesso.'
+      redirect_to @usuario
     else
-      render :edit
+      flash[:alert] = 'Erro ao atualizar o perfil.'
+      render :editar
     end
   end
 
-  def destroy
-    @user.destroy
-    flash[:success] = 'Usuário excluído com sucesso.'
-    redirect_to usuarios_url
+  def destruir
+    @usuario.destroy
+    flash[:notice] = 'Usuário removido com sucesso.'
+    redirect_to usuarios_path
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  def encontrar_usuario
+    @usuario = Usuario.find(params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(:nome, :email, :senha, :papel)
-  end
-
-  def require_login
-    return if logged_in?
-
-    flash[:danger] = 'Por favor, faça login.'
-    redirect_to login_url
+  def usuario_params
+    params.require(:usuario).permit(:nome, :email, :password, :role)
   end
 end

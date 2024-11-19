@@ -1,3 +1,4 @@
+# spec/cuidador_spec.rb
 require 'rails_helper'
 
 RSpec.describe Cuidador, type: :model do
@@ -14,6 +15,12 @@ RSpec.describe Cuidador, type: :model do
 
     it 'é inválido sem um número de contato' do
       cuidador = Cuidador.new(nome: 'Teste Cuidador')
+      expect(cuidador).not_to be_valid
+    end
+
+    it 'é inválido com um número de contato duplicado' do
+      Cuidador.create!(nome: 'Cuidador Existente', numero_contato: '123456789')
+      cuidador = Cuidador.new(nome: 'Outro Cuidador', numero_contato: '123456789')
       expect(cuidador).not_to be_valid
     end
   end

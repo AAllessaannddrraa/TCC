@@ -41,6 +41,18 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Action Mailer Configuration (CORRIGIDO)
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.example.com", # Substitua pelo endereço do seu provedor
+    port: 587,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: ENV["SMTP_USERNAME"], # Defina as variáveis de ambiente
+    password: ENV["SMTP_PASSWORD"]
+  }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

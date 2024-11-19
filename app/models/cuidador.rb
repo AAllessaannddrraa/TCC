@@ -4,7 +4,7 @@ class Cuidador < ApplicationRecord
   has_many :feedbacks
 
   validates :nome, presence: true
-  validates :numero_contato, presence: true
+  validates :numero_contato, presence: true, uniqueness: true
 
   # Example method for creating fake Cuidador data for testing
   def self.create_fake_cuidadores(count = 10)

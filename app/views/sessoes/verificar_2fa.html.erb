@@ -1,0 +1,12 @@
+<!-- app/views/sessoes/verificar_2fa.html.erb -->
+<h1>Verificação de Dois Fatores</h1>
+<p>Insira o código OTP gerado pelo seu aplicativo autenticador:</p>
+<%= form_with url: confirmar_2fa_path, method: :post do |form| %>
+  <div>
+    <%= form.label :otp_code, 'Código OTP' %>
+    <%= form.text_field :otp_code %>
+  </div>
+  <div>
+    <%= form.submit 'Verificar' %>
+  </div>
+<% end %>

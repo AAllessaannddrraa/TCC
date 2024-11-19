@@ -1,12 +1,13 @@
+# app/controllers/cuidadores_controller.rb
 class CuidadoresController < ApplicationController
-  before_action :set_cuidador, only: %i[show edit update destroy]
-  before_action :require_login # Certifique-se de que este método está definido na aplicação ou em um módulo helper
+  before_action :find_cuidador, only: [:show, :edit, :update, :destroy]
 
   def index
     @cuidadores = Cuidador.all
   end
 
-  def show; end
+  def show
+  end
 
   def new
     @cuidador = Cuidador.new
@@ -15,36 +16,40 @@ class CuidadoresController < ApplicationController
   def create
     @cuidador = Cuidador.new(cuidador_params)
     if @cuidador.save
-      redirect_to @cuidador, notice: 'Cuidador criado com sucesso.'
+      flash[:notice] = 'Cuidador criado com sucesso. Aguarde a validação do administrador.'
+      redirect_to cuidadores_path
     else
-      render :new, alert: 'Erro ao criar cuidador. Verifique os campos.'
+      flash[:alert] = 'Erro ao criar cuidador.'
+      render :new
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @cuidador.update(cuidador_params)
-      redirect_to @cuidador, notice: 'Cuidador atualizado com sucesso.'
+      flash[:notice] = 'Perfil atualizado com sucesso. Aguardando validação do administrador.'
+      redirect_to @cuidador
     else
-      render :edit, alert: 'Erro ao atualizar cuidador.'
+      flash[:alert] = 'Erro ao atualizar o perfil.'
+      render :edit
     end
   end
 
   def destroy
     @cuidador.destroy
-    redirect_to cuidadores_url, notice: 'Cuidador excluído com sucesso.'
+    flash[:notice] = 'Cuidador removido com sucesso.'
+    redirect_to cuidadores_path
   end
 
   private
 
-  def set_cuidador
+  def find_cuidador
     @cuidador = Cuidador.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to cuidadores_path, alert: 'Cuidador não encontrado.'
   end
 
   def cuidador_params
-    params.require(:cuidador).permit(:nome, :numero_contato)
+    params.require(:cuidador).permit(:nome, :numero_contato, :email, :endereco, :outros_atributos)
   end
 end

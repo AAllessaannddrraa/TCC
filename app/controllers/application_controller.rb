@@ -1,19 +1,26 @@
 # app/controllers/application_controller.rb
-module SessionsHelper
-  def log_in(user)
-    session[:user_id] = user.id
+class ApplicationController < ActionController::Base
+  helper_method :current_usuario, :usuario_logado?
+
+  def current_usuario
+    @current_usuario ||= Usuario.find(session[:usuario_id]) if session[:usuario_id]
   end
 
-  def log_out
-    session.delete(:user_id)
-    @current_user = nil
+  def usuario_logado?
+    !!current_usuario
   end
 
-  def current_user
-    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  def exigir_login
+    unless usuario_logado?
+      flash[:alert] = 'Você precisa estar logado para acessar esta página.'
+      redirect_to login_path
+    end
   end
 
-  def logged_in?
-    !current_user.nil?
+  def exigir_administrador
+    unless current_usuario&.administrador?
+      flash[:alert] = 'Acesso restrito a administradores.'
+      redirect_to root_path
+    end
   end
 end

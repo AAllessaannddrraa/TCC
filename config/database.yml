@@ -2,10 +2,9 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: apoiar_system
-  password: wilneson
-  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
-  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
 
 development:
   <<: *default
@@ -18,12 +17,6 @@ test:
 production:
   <<: *default
   database: apoiar_system_production
-  username: apoiar_system
-  # Utilize a linha abaixo para produção com variável de ambiente ou comente para utilizar a senha fixa
-  # password: <%= ENV.fetch("APOIAR_SYSTEM_DATABASE_PASSWORD", "wilneson") %>
-  password: wilneson
-
-test:
- test:
-  <<: *default
-  database: apoiar_system_test
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
