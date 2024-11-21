@@ -1,0 +1,14 @@
+
+<h1>Detalhes da Solicitação</h1>
+
+<p><strong>Serviço:</strong> <%= @solicitation.servico.nome %></p>
+<p><strong>Status:</strong> <%= @solicitation.status.capitalize %></p>
+<p><strong>Data:</strong> <%= @solicitation.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+
+<% if current_usuario.admin? %>
+  <h2>Gerenciar Solicitação</h2>
+  <%= link_to "Aprovar", solicitation_path(@solicitation, status: "aprovado"), method: :patch, class: "btn btn-success" %>
+  <%= link_to "Rejeitar", solicitation_path(@solicitation, status: "rejeitado"), method: :patch, class: "btn btn-danger" %>
+<% end %>
+
+<%= link_to "Voltar", solicitations_path, class: "btn btn-primary" %>

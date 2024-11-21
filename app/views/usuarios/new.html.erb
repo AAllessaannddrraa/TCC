@@ -1,37 +1,24 @@
-<h1><%= @user.new_record? ? 'Novo Usuário' : 'Editar Usuário' %></h1>
-<%= form_with(model: @user, local: true) do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "erro") %> proibiu este usuário de ser salvo:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :nome %>
+<h1>Cadastro de Usuário</h1>
+
+<%= form_with model: @usuario, local: true do |form| %>
+  <div>
+    <%= form.label :nome, "Nome Completo" %>
     <%= form.text_field :nome %>
   </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+  <div>
+    <%= form.label :email, "Email" %>
+    <%= form.email_field :email %>
   </div>
-
-  <div class="field">
-    <%= form.label :senha %>
-    <%= form.password_field :senha %>
+  <div>
+    <%= form.label :password, "Senha" %>
+    <%= form.password_field :password %>
   </div>
-
-  <div class="field">
-    <%= form.label :senha_confirmation %>
-    <%= form.password_field :senha_confirmation %>
+  <div>
+    <%= form.label :password_confirmation, "Confirmação de Senha" %>
+    <%= form.password_field :password_confirmation %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div>
+    <%= form.submit "Cadastrar" %>
   </div>
 <% end %>

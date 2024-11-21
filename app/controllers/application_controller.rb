@@ -24,3 +24,45 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+    
+  private
+
+  # Restrict access to admins only
+  def ensure_admin
+    unless current_usuario&.admin?
+      flash[:alert] = "Acesso negado! Apenas administradores podem acessar esta área."
+      redirect_to root_path
+    end
+  end
+
+  # Restrict access to caregivers only
+  def ensure_cuidador
+    unless current_usuario&.cuidador?
+      flash[:alert] = "Acesso negado! Apenas cuidadores podem acessar esta área."
+      redirect_to root_path
+    end
+  end
+
+  # Restrict access to clients only
+  def ensure_cliente
+    unless current_usuario&.cliente?
+      flash[:alert] = "Acesso negado! Apenas clientes podem acessar esta área."
+      redirect_to root_path
+    end
+  end
+
+    
+  # Redirect users to their specific dashboards after login
+  def after_sign_in_path_for(resource)
+    case resource.role
+    when "admin"
+      admin_dashboard_path
+    when "cuidador"
+      caregiver_dashboard_path
+    when "cliente"
+      client_dashboard_path
+    else
+      root_path
+    end
+  end

@@ -1,0 +1,29 @@
+
+<h1>Lista de Usuários</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Tipo</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= usuario.nome %></td>
+        <td><%= usuario.email %></td>
+        <td><%= usuario.role.capitalize %></td>
+        <td>
+          <%= link_to 'Ver', usuario_path(usuario), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Editar', edit_usuario_path(usuario), class: 'btn btn-warning btn-sm' %>
+          <% if current_usuario.admin? %>
+            <%= link_to 'Excluir', usuario_path(usuario), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

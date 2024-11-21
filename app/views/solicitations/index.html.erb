@@ -1,0 +1,18 @@
+
+<h1 class="text-center">Minhas Solicitações</h1>
+
+<div class="container mt-4">
+  <div class="row">
+    <% @solicitations.each do |solicitation| %>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Serviço: <%= solicitation.servico.nome %></h5>
+            <p class="card-text">Status: <%= solicitation.status.capitalize %></p>
+            <a href="<%= solicitation_path(solicitation) %>" class="btn btn-primary">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

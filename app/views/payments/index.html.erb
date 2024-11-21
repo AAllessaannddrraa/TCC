@@ -1,0 +1,27 @@
+
+<h1>Histórico de Pagamentos</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Solicitação</th>
+      <th>Cliente</th>
+      <th>Valor</th>
+      <th>Status</th>
+      <th>Método de Pagamento</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.solicitation.servico.nome %></td>
+        <td><%= payment.solicitation.cliente.nome %></td>
+        <td><%= number_to_currency(payment.valor) %></td>
+        <td><%= payment.status.capitalize %></td>
+        <td><%= payment.metodo_pagamento %></td>
+        <td><%= payment.created_at.strftime('%d/%m/%Y %H:%M') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

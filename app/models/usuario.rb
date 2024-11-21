@@ -1,22 +1,53 @@
-# app/models/usuario.rb
 class Usuario < ApplicationRecord
-  has_secure_password
-  before_create :generate_otp_secret
+  # Devise modules for authentication
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
-  # Gera uma chave secreta para 2FA
-  def generate_otp_secret
-    self.otp_secret ||= ROTP::Base32.random_base32
+  # Validations
+  validates :nome, presence: true, length: { minimum: 3 }
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
+  validates :password, presence: true, length: { minimum: 6 }
+
+  # Associations
+  has_many :servicos, foreign_key: :cliente_id, dependent: :destroy
+
+  # Match caregiver with client based on needs and availability
+  def match_with_cliente(cliente)
+    # Check if caregiver has the required specializations
+    match_especializacoes = (cliente.necessidades & self.especializacoes).any?
+
+    # Check if caregiver is available during preferred times
+    match_horarios = self.disponibilidade.include?(cliente.horarios_preferidos)
+
+    # Check if caregiver serves the client's region
+    match_regioes = self.regioes_atendimento.include?(cliente.endereco_regiao)
+
+    # All conditions must match
+    match_especializacoes && match_horarios && match_regioes
   end
 
-  # Gera um código OTP baseado na chave secreta
-  def current_otp
-    totp = ROTP::TOTP.new(self.otp_secret)
-    totp.now
+  # Notify user with a message
+  def notify(message)
+    notifications.create(message: message, status: "unread")
   end
 
-  # Verifica o código OTP fornecido
-  def validate_otp(otp_code)
-    totp = ROTP::TOTP.new(self.otp_secret)
-    totp.verify(otp_code)
+  # Fetch unread notifications
+  def unread_notifications
+    notifications.where(status: "unread")
+  end
+
+  # Check if the user is an admin
+  def admin?
+    role == "admin"
+  end
+
+  # Check if the user is a caregiver
+  def cuidador?
+    role == "cuidador"
+  end
+
+  # Check if the user is a client
+  def cliente?
+    role == "cliente"
   end
 end

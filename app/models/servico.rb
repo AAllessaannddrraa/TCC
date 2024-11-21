@@ -1,10 +1,14 @@
-# app/models/servico.rb
+
 class Servico < ApplicationRecord
-  belongs_to :usuario
-  belongs_to :cuidador, optional: true
+  # Associations
+  belongs_to :cliente, class_name: "Usuario"
 
-  validates :descricao, :data_hora, presence: true
+  # Validations
+  validates :nome, :descricao, :preco, :data_agendamento, presence: true
+  validates :preco, numericality: { greater_than_or_equal_to: 0 }
 
-  enum status: { pendente: 0, confirmado: 1, rejeitado: 2 }
+  # Status options
+  STATUS = %w[pendente confirmado cancelado]
+
+  validates :status, inclusion: { in: STATUS }
 end
-

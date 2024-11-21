@@ -1,0 +1,16 @@
+
+<h1>Nova Solicitação de Serviço</h1>
+
+<%= form_with model: @solicitation, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :servico_id, "Serviço" %>
+    <%= form.collection_select :servico_id, @servicos, :id, :nome, prompt: "Selecione um serviço", class: "form-select" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :observacoes, "Observações" %>
+    <%= form.text_area :observacoes, rows: 3, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.submit "Enviar Solicitação", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,26 +1,19 @@
-# Criação de usuários de exemplo
-Usuario.create!(
-  nome: 'Admin',
-  email: 'admin@example.com',
-  password: 'senha123',
-  password_confirmation: 'senha123',
-  papel: 'administrador'
-)
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: apoiar_system
+  password: senha123 # Substitua pela senha que você configurou no PostgreSQL
+  host: localhost
 
-Usuario.create!(
-  nome: 'Cliente Exemplo',
-  email: 'cliente@example.com',
-  password: 'senha123',
-  password_confirmation: 'senha123',
-  papel: 'cliente'
-)
+development:
+  <<: *default
+  database: apoiar_system_development
 
-Usuario.create!(
-  nome: 'Cuidador Exemplo',
-  email: 'cuidador@example.com',
-  password: 'senha123',
-  password_confirmation: 'senha123',
-  papel: 'cuidador'
-)
+test:
+  <<: *default
+  database: apoiar_system_test
 
-puts 'Usuários criados com sucesso!'
+production:
+  <<: *default
+  database: apoiar_system_production

@@ -1,0 +1,28 @@
+
+<h1>Serviços Disponíveis</h1>
+<%= link_to "Novo Serviço", new_servico_path, class: "btn btn-primary" %>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @servicos.each do |servico| %>
+      <tr>
+        <td><%= servico.nome %></td>
+        <td><%= servico.descricao %></td>
+        <td><%= number_to_currency(servico.preco) %></td>
+        <td>
+          <%= link_to "Visualizar", servico_path(servico), class: "btn btn-secondary" %>
+          <% if servico.status != 'confirmado' %>
+            <%= link_to "Confirmar", confirmar_servico_path(servico), method: :post, class: "btn btn-success" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

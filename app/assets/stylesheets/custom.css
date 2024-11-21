@@ -1,63 +1,36 @@
+
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
 }
 
-nav {
-  background-color: #007bff;
-  padding: 10px;
-  color: white;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-
-nav ul li {
-  margin-right: 15px;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
+.navbar {
+  margin-bottom: 20px;
 }
 
 .container {
-  padding: 20px;
+  max-width: 960px;
 }
 
-.field {
-  margin-bottom: 15px;
-}
-
-.field label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.field input {
-  padding: 8px;
-  width: 100%;
-  max-width: 300px;
-}
-
-.actions {
+.alert {
   margin-top: 20px;
 }
 
-.btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
 }
 
-.btn:hover {
-  background-color: #0056b3;
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+.btn {
+  margin: 5px;
 }

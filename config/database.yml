@@ -1,26 +1,38 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On macOS with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem "pg"
+#
 default: &default
   adapter: postgresql
   encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  username: apoiar_system
+  password: sua_senha_correta
+  host: localhost
 
 development:
   <<: *default
-  database: apoiar_system_development
-  username: apoiar_system
-  password: <sua_senha_correta>
-  host: localhost
-
+  database: apoiar_system_final_version_development
 
 test:
   <<: *default
-  database: apoiar_system_test
+  database: apoiar_system_final_version_test
 
 production:
   <<: *default
-  database: apoiar_system_production
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  database: apoiar_system_final_version_production
+  username: apoiar_system
+  password: sua_senha_correta
+  host: localhost

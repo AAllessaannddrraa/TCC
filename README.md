@@ -1,24 +1,58 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# ApoiAR System
 
-Things you may want to cover:
+A complete system for managing caregiving services, including user registration, caregiver-patient connections, and payment processing.
 
-* Ruby version
+## Features
 
-* System dependencies
+- User authentication and roles (Admin, Client, Caregiver).
+- Request creation and management.
+- Payment processing with multiple methods (Credit Card, Boleto, Pix).
+- Real-time notifications.
+- Administrative dashboard with key metrics and reports.
 
-* Configuration
+## Installation
 
-* Database creation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd apoiar_system
+   ```
 
-* Database initialization
+2. Install dependencies:
+   ```bash
+   bundle install
+   ```
 
-* How to run the test suite
+3. Set up the database:
+   ```bash
+   rails db:create db:migrate db:seed
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+4. Run the server:
+   ```bash
+   rails server
+   ```
 
-* Deployment instructions
+5. Access the application at `http://localhost:3000`.
 
-* ...
+## Testing
+
+Run the test suite with:
+```bash
+rspec --format documentation
+```
+
+## Deployment
+
+1. Set up a hosting platform like Heroku or Render.
+2. Configure the environment variables for the database and API keys.
+3. Push the repository to the hosting platform.
+
+## Contributing
+
+Feel free to fork and contribute!
+
+## License
+
+This project is licensed under the MIT License.

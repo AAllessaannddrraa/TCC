@@ -1,0 +1,9 @@
+
+<h1>Detalhes do Usuário</h1>
+
+<p><strong>Nome:</strong> <%= @usuario.nome %></p>
+<p><strong>E-mail:</strong> <%= @usuario.email %></p>
+<p><strong>Tipo:</strong> <%= @usuario.role.capitalize %></p>
+
+<%= link_to 'Voltar', users_path, class: 'btn btn-secondary' %>
+<%= link_to 'Editar', edit_usuario_path(@usuario), class: 'btn btn-primary' if current_usuario.admin? || current_usuario == @usuario %>

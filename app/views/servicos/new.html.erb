@@ -1,16 +1,23 @@
-<!-- app/views/servicos/novo.html.erb -->
-<h1>Agendar Serviço</h1>
+
+<h1>Agendar Novo Serviço</h1>
 <%= form_with model: @servico, local: true do |form| %>
   <div>
-    <%= form.label :descricao %>
+    <%= form.label :nome, "Nome do Serviço" %>
+    <%= form.text_field :nome %>
+  </div>
+  <div>
+    <%= form.label :descricao, "Descrição" %>
     <%= form.text_area :descricao %>
   </div>
   <div>
-    <%= form.label :data_hora %>
-    <%= form.datetime_select :data_hora %>
+    <%= form.label :preco, "Preço" %>
+    <%= form.number_field :preco, step: 0.01 %>
   </div>
   <div>
-    <%= form.submit 'Agendar' %>
+    <%= form.label :data_agendamento, "Data do Agendamento" %>
+    <%= form.datetime_select :data_agendamento %>
+  </div>
+  <div>
+    <%= form.submit "Agendar" %>
   </div>
 <% end %>
-<%= link_to 'Voltar', servicos_path %>

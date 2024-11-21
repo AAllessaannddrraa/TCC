@@ -1,0 +1,10 @@
+
+<h1>Área do Cliente</h1>
+
+<p>Bem-vindo, <%= current_usuario.nome %>! Aqui estão suas funcionalidades:</p>
+
+<ul>
+  <li><%= link_to "Solicitar Serviço", new_solicitation_path, class: "btn btn-primary" %></li>
+  <li><%= link_to "Minhas Solicitações", solicitations_path, class: "btn btn-primary" %></li>
+  <li><%= link_to "Perfil", edit_usuario_registration_path, class: "btn btn-primary" %></li>
+</ul>

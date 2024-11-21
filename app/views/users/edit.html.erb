@@ -1,0 +1,28 @@
+
+<h1>Editar Usuário</h1>
+
+<%= form_with model: @usuario, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :nome, "Nome" %>
+    <%= form.text_field :nome, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :email, "E-mail" %>
+    <%= form.email_field :email, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :password, "Senha" %>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+  <% if current_usuario.admin? %>
+    <div class="mb-3">
+      <%= form.label :role, "Tipo de Usuário" %>
+      <%= form.select :role, ["cliente", "cuidador", "admin"], class: "form-select" %>
+    </div>
+  <% end %>
+  <div>
+    <%= form.submit "Salvar", class: "btn btn-success" %>
+  </div>
+<% end %>
+
+<%= link_to 'Cancelar', usuario_path(@usuario), class: 'btn btn-secondary' %>

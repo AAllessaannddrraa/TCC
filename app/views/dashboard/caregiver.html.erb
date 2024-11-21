@@ -1,0 +1,9 @@
+
+<h1>Área do Cuidador</h1>
+
+<p>Bem-vindo, <%= current_usuario.nome %>! Aqui estão suas funcionalidades:</p>
+
+<ul>
+  <li><%= link_to "Serviços Atribuídos", assigned_services_path, class: "btn btn-primary" %></li>
+  <li><%= link_to "Perfil", edit_usuario_registration_path, class: "btn btn-primary" %></li>
+</ul>

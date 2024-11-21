@@ -1,0 +1,51 @@
+
+<h1 class="text-center">Dashboard Administrativo</h1>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <h5 class="card-title">Total de Solicitações</h5>
+          <p class="card-text"><%= @solicitations_by_status.values.sum %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Pagamentos Processados</h5>
+          <p class="card-text">R$ <%= @total_payments %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-4">Solicitações Recentes</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Serviço</th>
+          <th>Status</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recent_combinations.each do |solicitation| %>
+          <tr>
+            <td><%= solicitation.cliente.nome %></td>
+            <td><%= solicitation.servico.nome %></td>
+            <td><%= solicitation.status.capitalize %></td>
+            <td><%= solicitation.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-center mt-4">
+  <%= link_to "Voltar ao Início", root_path, class: "btn btn-secondary" %>
+</div>

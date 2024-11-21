@@ -1,0 +1,39 @@
+
+<h1>Dashboard Administrativo</h1>
+
+<p>Bem-vindo, <%= current_usuario.nome %>! Aqui estão as métricas e ações administrativas:</p>
+
+<ul>
+  <li><%= link_to "Gerenciar Usuários", usuarios_path, class: "btn btn-primary" %></li>
+  <li><%= link_to "Solicitações Pendentes", solicitations_path, class: "btn btn-primary" %></li>
+  <li><%= link_to "Relatórios", reports_path, class: "btn btn-primary" %></li>
+</ul>
+
+
+<div class="row">
+  <!-- Metrics Section -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Métricas</div>
+      <div class="card-body">
+        <p>Total de Usuários: <%= Usuario.count %></p>
+        <p>Total de Solicitações Pendentes: <%= Solicitation.where(status: 'pendente').count %></p>
+        <p>Total de Pagamentos Processados: <%= Payment.where(status: 'pago').count %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports Section -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Relatórios</div>
+      <div class="card-body">
+        <ul>
+          <li><%= link_to "Relatório de Usuários", reports_path(type: 'usuarios'), class: "btn btn-link" %></li>
+          <li><%= link_to "Relatório de Solicitações", reports_path(type: 'solicitations'), class: "btn btn-link" %></li>
+          <li><%= link_to "Relatório de Pagamentos", reports_path(type: 'payments'), class: "btn btn-link" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

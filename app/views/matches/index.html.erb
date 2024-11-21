@@ -1,0 +1,39 @@
+
+<h1>Gerenciamento de Combinações</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Cuidador</th>
+      <th>Critérios Atendidos</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr>
+        <td>
+          <%= match[:cliente].nome %><br>
+          <small><strong>Necessidades:</strong> <%= match[:cliente].necessidades.join(", ") %></small>
+        </td>
+        <td>
+          <%= match[:cuidador].nome %><br>
+          <small><strong>Especializações:</strong> <%= match[:cuidador].especializacoes.join(", ") %></small>
+        </td>
+        <td>
+          <ul>
+            <li>Especializações: <%= (match[:cliente].necessidades & match[:cuidador].especializacoes).join(", ") %></li>
+            <li>Disponibilidade: <%= match[:cuidador].disponibilidade %></li>
+            <li>Regiões: <%= match[:cuidador].regioes_atendimento.join(", ") %></li>
+          </ul>
+        </td>
+        <td>
+          <%= button_to "Atribuir Cuidador", matches_path(cliente_id: match[:cliente].id, cuidador_id: match[:cuidador].id), method: :post, class: "btn btn-primary btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Voltar ao Dashboard", dashboard_path, class: "btn btn-secondary" %>

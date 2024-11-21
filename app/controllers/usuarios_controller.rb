@@ -1,56 +1,36 @@
-# app/controllers/usuarios_controller.rb
+
 class UsuariosController < ApplicationController
-  before_action :encontrar_usuario, only: [:mostrar, :editar, :atualizar, :destruir]
-  before_action :exigir_login, except: [:novo, :criar]
+  before_action :authenticate_usuario!, only: [:edit, :update]
 
-  def index
-    @usuarios = Usuario.all
-  end
-
-  def mostrar
-  end
-
-  def novo
+  def new
     @usuario = Usuario.new
   end
 
-  def criar
+  def create
     @usuario = Usuario.new(usuario_params)
     if @usuario.save
-      flash[:notice] = 'Usuário criado com sucesso. Aguardando aprovação do administrador.'
-      redirect_to usuarios_path
+      redirect_to root_path, notice: 'Usuário cadastrado com sucesso.'
     else
-      flash[:alert] = 'Erro ao criar usuário.'
-      render :novo
+      render :new
     end
   end
 
-  def editar
+  def edit
+    @usuario = current_usuario
   end
 
-  def atualizar
+  def update
+    @usuario = current_usuario
     if @usuario.update(usuario_params)
-      flash[:notice] = 'Perfil atualizado com sucesso.'
-      redirect_to @usuario
+      redirect_to perfil_path, notice: 'Perfil atualizado com sucesso.'
     else
-      flash[:alert] = 'Erro ao atualizar o perfil.'
-      render :editar
+      render :edit
     end
-  end
-
-  def destruir
-    @usuario.destroy
-    flash[:notice] = 'Usuário removido com sucesso.'
-    redirect_to usuarios_path
   end
 
   private
 
-  def encontrar_usuario
-    @usuario = Usuario.find(params[:id])
-  end
-
   def usuario_params
-    params.require(:usuario).permit(:nome, :email, :password, :role)
+    params.require(:usuario).permit(:email, :password, :password_confirmation, :nome)
   end
 end
