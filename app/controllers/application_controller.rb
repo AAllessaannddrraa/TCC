@@ -1,5 +1,7 @@
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
+  before_action :authenticate_usuario!
+
   helper_method :current_usuario, :usuario_logado?
 
   def current_usuario
@@ -23,9 +25,9 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-end
 
-    
+
+
   private
 
   # Restrict access to admins only
@@ -52,7 +54,7 @@ end
     end
   end
 
-    
+
   # Redirect users to their specific dashboards after login
   def after_sign_in_path_for(resource)
     case resource.role
@@ -66,3 +68,4 @@ end
       root_path
     end
   end
+end
