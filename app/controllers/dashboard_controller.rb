@@ -1,4 +1,3 @@
-
 class DashboardController < ApplicationController
   before_action :authenticate_usuario!
   before_action :ensure_admin, only: [:admin_dashboard]
@@ -12,6 +11,6 @@ class DashboardController < ApplicationController
   private
 
   def ensure_admin
-    redirect_to root_path, alert: "Acesso negado!" unless current_usuario.admin?
+    redirect_to root_path, alert: "Acesso negado!" unless current_usuario&.admin?
   end
 end

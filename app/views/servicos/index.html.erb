@@ -1,12 +1,16 @@
+<h1>Serviços</h1>
 
-<h1>Serviços Disponíveis</h1>
-<%= link_to "Novo Serviço", new_servico_path, class: "btn btn-primary" %>
-<table>
+<%= link_to 'Novo Serviço', new_servico_path, class: "btn btn-primary" if current_usuario&.admin? %>
+
+<table class="table">
   <thead>
     <tr>
       <th>Nome</th>
       <th>Descrição</th>
       <th>Preço</th>
+      <th>Data de Agendamento</th>
+      <th>Cuidador</th>
+      <th>Status</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -16,11 +20,14 @@
         <td><%= servico.nome %></td>
         <td><%= servico.descricao %></td>
         <td><%= number_to_currency(servico.preco) %></td>
+        <td><%= servico.data_agendamento %></td>
+        <td><%= servico.cuidador.nome if servico.cuidador %></td>
+        <td><%= servico.status %></td>
         <td>
-          <%= link_to "Visualizar", servico_path(servico), class: "btn btn-secondary" %>
-          <% if servico.status != 'confirmado' %>
-            <%= link_to "Confirmar", confirmar_servico_path(servico), method: :post, class: "btn btn-success" %>
-          <% end %>
+          <%= link_to 'Mostrar', servico %>
+          <%= link_to 'Editar', edit_servico_path(servico) if current_usuario&.admin? %>
+          <%= link_to 'Excluir', servico, method: :delete, data: { confirm: 'Tem certeza?' } if current_usuario&.admin? %>
+          <%= link_to 'Confirmar', confirmar_servico_path(servico), method: :patch, data: { confirm: 'Tem certeza?' } if current_usuario&.admin? && servico.status != 'confirmado' %>
         </td>
       </tr>
     <% end %>

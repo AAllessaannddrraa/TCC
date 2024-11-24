@@ -1,4 +1,10 @@
+class Servico < ApplicationRecord
+  belongs_to :cliente, class_name: 'Usuario'
+  belongs_to :cuidador, class_name: 'Usuario'
 
+  validates :data, presence: true
+  validates :hora, presence: true
+end
 class Servico < ApplicationRecord
   # Associations
   belongs_to :cliente, class_name: "Usuario"

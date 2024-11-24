@@ -1,0 +1,30 @@
+<%= form_for @servico do |f| %>
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+
+  <div class="field">
+    <%= f.label :descricao %><br />
+    <%= f.text_area :descricao %>
+  </div>
+
+  <div class="field">
+    <%= f.label :preco %><br />
+    <%= f.number_field :preco, step: 0.01 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :data_agendamento %><br />
+    <%= f.date_field :data_agendamento %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cuidador_id %><br />
+    <%= f.collection_select :cuidador_id, Usuario.where(role: 'cuidador'), :id, :nome %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_usuario, :usuario_logado?
 
   def current_usuario
-    @current_usuario ||= Usuario.find(session[:usuario_id]) if session[:usuario_id]
+    @current_usuario ||= Usuario.find_by(id: session[:usuario_id]) if session[:usuario_id]
   end
 
   def usuario_logado?
@@ -15,18 +15,16 @@ class ApplicationController < ActionController::Base
   def exigir_login
     unless usuario_logado?
       flash[:alert] = 'Você precisa estar logado para acessar esta página.'
-      redirect_to login_path
+      redirect_to new_usuario_session_path
     end
   end
 
   def exigir_administrador
-    unless current_usuario&.administrador?
+    unless current_usuario&.admin?
       flash[:alert] = 'Acesso restrito a administradores.'
       redirect_to root_path
     end
   end
-
-
 
   private
 
@@ -53,7 +51,6 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
-
 
   # Redirect users to their specific dashboards after login
   def after_sign_in_path_for(resource)

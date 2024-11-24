@@ -7,3 +7,8 @@ pt:
       deleted: "%{model} foi excluído com sucesso."
     alert:
       error: "Algo deu errado."
+pt:
+  devise:
+    failure:
+      unauthenticated: "Você precisa estar logado para acessar esta página."
+      unauthorized: "Você não tem permissão para acessar este recurso."

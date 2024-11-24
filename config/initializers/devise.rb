@@ -24,12 +24,7 @@ Devise.setup do |config|
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
-  # just :email. You can configure it to use [:username, :subdomain], so for
-  # authenticating a user, both parameters are required. Remember that those
-  # parameters are used only when authenticating and not when retrieving from
-  # session. If you need permissions, you should implement that in a before filter.
-  # You can also supply a hash where the value is a boolean determining whether
-  # or not authentication should be aborted when the value is not present.
+  # just :email. You can configure it to use [:username, :subdomain], etc.
   # config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
@@ -105,10 +100,10 @@ Devise.setup do |config|
   #   * Test: 1
   #   * Other: 12
   #
-  # config.stretches = Rails.env.test? ? 1 : 12
+  config.stretches = Rails.env.test? ? 1 : 12
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'some_random_pepper'
+  config.pepper = 'some-random-string'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -146,7 +141,7 @@ Devise.setup do |config|
   config.password_length = 6..128
 
   # Email regex used to validate email formats. It simply asserts that
-  # an one (and only one) @ exists in the given string. This is mainly
+  # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 
@@ -191,7 +186,7 @@ Devise.setup do |config|
   # Allow you to use another encryption algorithm besides bcrypt (default). You can use
   # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,
   # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
-  # and :restful_authentication_sha1.
+  # and configure encryptor options:
   # config.encryptor = :sha512
 
   # ==> Scopes configuration
@@ -207,6 +202,8 @@ Devise.setup do |config|
   #
   # If you have any extra navigational formats, like :iphone or :mobile, you
   # should add them to the navigational formats lists.
+  #
+  # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
@@ -228,8 +225,7 @@ Devise.setup do |config|
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
-  # is mountable, there are some extra configurations to be taken into account.
-  # The following options are available, assuming the engine is mounted as root:
+  # is mountable, you can set the router name used by the engine.
   #
   #     config.router_name = :my_engine
   #     config.parent_controller = 'MyEngine::ApplicationController'

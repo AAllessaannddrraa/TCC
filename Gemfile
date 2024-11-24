@@ -15,8 +15,13 @@ gem "devise"
 
 gem "faker"
 
+# autorization
+gem "pundit"
+
 # Search
 gem "pg_search"
+
+#images
 gem "cloudinary"
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -65,6 +70,7 @@ group :development, :test do
 
   gem "factory_bot_rails" # Para criar dados de teste facilmente
   gem "rspec-rails", "~> 5.0.0"
+  gem 'database_cleaner-active_record'
 end
 
 group :development do
@@ -82,4 +88,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "webdrivers"
 end

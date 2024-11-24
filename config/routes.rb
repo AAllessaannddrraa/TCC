@@ -1,15 +1,11 @@
 Rails.application.routes.draw do
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-   # Root route
-  root to: "pages#home"
+  root 'pages#home'
 
   devise_for :usuarios
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
+  devise_scope :usuario do
+    get '/login', to: 'devise/sessions#new'
+  end
 
   # Usuarios routes
   resources :usuarios, only: [:new, :create, :edit, :update, :destroy] do
@@ -36,7 +32,25 @@ Rails.application.routes.draw do
   # Turnos routes
   resources :turnos
 
-  # Dashboard routes
-  get 'dashboard/admin_dashboard', to: 'dashboard#admin_dashboard'
+  # Serviços routes
+  resources :servicos do
+    member do
+      patch :confirmar
+    end
+    collection do
+      get :calendar_events
+    end
+  end
 
+  # Sessoes routes
+  resources :sessoes
+
+  # Reports routes
+  resources :reports
+
+  # Home matches routes
+  resources :home_matches
+
+  # Dashboard routes
+  get 'dashboard/admin_dashboard', to: 'dashboard#admin_dashboard', as: 'dashboard'
 end

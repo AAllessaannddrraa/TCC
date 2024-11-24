@@ -1,19 +1,33 @@
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  username: apoiar_system
-  password: senha123 # Substitua pela senha que você configurou no PostgreSQL
-  host: localhost
+# db/seeds.rb
+Usuario.find_or_create_by!(
+  email: 'admin@example.com'
+) do |user|
+  user.nome = 'Admin'
+  user.password = 'senha123'
+  user.password_confirmation = 'senha123'
+  user.papel = 'administrador'
+end
 
-development:
-  <<: *default
-  database: apoiar_system_development
+Usuario.find_or_create_by!(
+  email: 'cliente@example.com'
+) do |user|
+  user.nome = 'Cliente Exemplo'
+  user.password = 'senha123'
+  user.password_confirmation = 'senha123'
+  user.papel = 'cliente'
+end
 
-test:
-  <<: *default
-  database: apoiar_system_test
+Usuario.find_or_create_by!(
+  email: 'cuidador@example.com'
+) do |user|
+  user.nome = 'Cuidador Exemplo'
+  user.password = 'senha123'
+  user.password_confirmation = 'senha123'
+  user.papel = 'cuidador'
+end
 
-production:
-  <<: *default
-  database: apoiar_system_production
+puts 'Usuários criados com sucesso!'
+
+require 'faker'
+
+Cuidador.create_fake_cuidadores(10)

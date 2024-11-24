@@ -1,0 +1,74 @@
+<!-- app/views/pages/home.html.erb -->
+<h1>Bem-vindo à Página Inicial</h1>
+<p>Esta é a página inicial da aplicação.</p>
+
+<section class="hero text-center text-white d-flex align-items-center" style="background: url('https://source.unsplash.com/1920x1080/?health,care') no-repeat center center/cover; height: 100vh;">
+  <div class="overlay"></div>
+  <div class="container position-relative">
+    <h1 class="display-3 fw-bold mb-4">Cuidado Profissional, Confiança Total</h1>
+    <p class="lead mb-4">Soluções domiciliares feitas sob medida para você, com dedicação e excelência.</p>
+    <a href="#orcamento" class="btn btn-primary btn-lg px-5 py-3">Solicitar Orçamento</a>
+  </div>
+</section>
+
+<section id="orcamento" class="container mt-5">
+  <h2 class="text-center">Solicite um Orçamento</h2>
+  <p class="text-center">Preencha o formulário abaixo para solicitar seu orçamento personalizado.</p>
+  <!-- Formulário de orçamento -->
+  <form>
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" placeholder="Seu nome">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="email" placeholder="Seu e-mail">
+    </div>
+    <div class="mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="tel" class="form-control" id="telefone" placeholder="Seu telefone">
+    </div>
+    <div class="mb-3">
+      <label for="tipo_servico" class="form-label">Tipo de Serviço</label>
+      <select class="form-select" id="tipo_servico">
+        <option selected>Escolha...</option>
+        <option value="1">Serviço 1</option>
+        <option value="2">Serviço 2</option>
+        <option value="3">Serviço 3</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="descricao" class="form-label">Descrição</label>
+      <textarea class="form-control" id="descricao" rows="3" placeholder="Descreva o serviço que você precisa"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+</section>
+
+<section id="sobre" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">Sobre Nós</h2>
+    <p class="text-center">
+      Bem-vindo ao Apoiar System! Somos uma plataforma dedicada a oferecer serviços domiciliares personalizados,
+      priorizando confiança, qualidade e cuidado. Nossa equipe é formada por profissionais experientes e
+      comprometidos em atender às suas necessidades.
+    </p>
+    <div class="row mt-4">
+      <div class="col-md-4 text-center">
+        <i class="fas fa-user-shield fa-3x mb-3"></i>
+        <h5>Confiabilidade</h5>
+        <p>Profissionais capacitados e de confiança.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="fas fa-heart fa-3x mb-3"></i>
+        <h5>Cuidado</h5>
+        <p>Serviços feitos com dedicação e carinho.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="fas fa-check-circle fa-3x mb-3"></i>
+        <h5>Qualidade</h5>
+        <p>Garantimos excelência em cada atendimento.</p>
+      </div>
+    </div>
+  </div>
+</section>

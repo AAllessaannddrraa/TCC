@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_19_220631) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,39 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_220631) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "cuidadores", force: :cascade do |t|
+    t.string "nome", null: false
+    t.date "data_nascimento"
+    t.string "genero"
+    t.string "nif", null: false
+    t.string "nic"
+    t.string "endereco"
+    t.string "telefone_principal"
+    t.string "telefone_secundario"
+    t.string "email", null: false
+    t.string "numero_contato", null: false
+    t.integer "experiencia"
+    t.text "especializacoes"
+    t.text "certificacoes"
+    t.text "disponibilidade"
+    t.text "idiomas"
+    t.text "habilidades"
+    t.text "tipos_servicos"
+    t.string "nacionalidade"
+    t.string "codigo_pais_telefone"
+    t.string "telefone_emergencia"
+    t.text "filhos_e_idades"
+    t.text "formacao"
+    t.text "certidao_criminal"
+    t.string "status_selecao"
+    t.string "gestor_responsavel"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_cuidadores_on_email", unique: true
+    t.index ["nif"], name: "index_cuidadores_on_nif", unique: true
+    t.index ["numero_contato"], name: "index_cuidadores_on_numero_contato", unique: true
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -105,6 +138,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_19_220631) do
     t.text "regioes_atendimento"
     t.string "password_digest"
     t.string "otp_secret"
+    t.string "role"
+    t.string "papel"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
   end
 
