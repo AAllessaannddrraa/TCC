@@ -1,0 +1,23 @@
+<h1>Tipos de Serviço</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tipos_servico.each do |tipo_servico| %>
+      <tr>
+        <td><%= tipo_servico.nome %></td>
+        <td><%= tipo_servico.descricao %></td>
+        <td>
+          <%= link_to 'Editar', edit_tipo_servico_path(tipo_servico) %>
+          <%= link_to 'Deletar', tipo_servico_path(tipo_servico), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Novo Tipo de Serviço', new_tipo_servico_path, class: 'btn btn-primary' %>

@@ -1,6 +1,7 @@
-<h1>Detalhes do Cuidador</h1>
-<p><strong>Nome:</strong> <%= @cuidador.nome %></p>
-<p><strong>Contato:</strong> <%= @cuidador.numero_contato %></p>
+<!-- Arquivo: app/views/cuidadores/show.html.erb -->
+<h1><%= @cuidador.nome %></h1>
+<p><strong>Email:</strong> <%= @cuidador.email %></p>
+<p><strong>Telefone:</strong> <%= @cuidador.telefone %></p>
+<p><strong>Endereço:</strong> <%= @cuidador.endereco %></p>
 
-<%= link_to 'Editar', edit_cuidador_path(@cuidador) %> |
-<%= link_to 'Voltar', cuidadores_path %>
+<%= link_to 'Voltar para Lista', cuidadores_path, class: "btn btn-primary" %>

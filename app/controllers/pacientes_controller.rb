@@ -1,10 +1,11 @@
 # app/controllers/pacientes_controller.rb
 class PacientesController < ApplicationController
   before_action :set_paciente, only: %i[show edit update destroy]
-  before_action :require_login # Proteção de login
+  before_action :authenticate_usuario!
+  before_action :authorize_cliente_or_admin, only: %i[new create edit update destroy]
 
   def index
-    @pacientes = Paciente.all
+    @pacientes = current_usuario.cliente? ? current_usuario.cliente.pacientes : Paciente.all
   end
 
   def show; end
@@ -15,12 +16,11 @@ class PacientesController < ApplicationController
 
   def create
     @paciente = Paciente.new(paciente_params)
+    @paciente.cliente = current_usuario.cliente if current_usuario.cliente?
     if @paciente.save
-      flash[:success] = 'Paciente criado com sucesso.'
-      redirect_to @paciente
+      redirect_to @paciente, notice: 'Paciente cadastrado com sucesso.'
     else
-      flash.now[:danger] = 'Erro ao criar paciente. Verifique os campos.'
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -28,18 +28,15 @@ class PacientesController < ApplicationController
 
   def update
     if @paciente.update(paciente_params)
-      flash[:success] = 'Paciente atualizado com sucesso.'
-      redirect_to @paciente
+      redirect_to @paciente, notice: 'Paciente atualizado com sucesso.'
     else
-      flash.now[:danger] = 'Erro ao atualizar paciente.'
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @paciente.destroy
-    flash[:success] = 'Paciente excluído com sucesso.'
-    redirect_to pacientes_url
+    redirect_to pacientes_url, notice: 'Paciente removido com sucesso.'
   end
 
   private
@@ -49,7 +46,10 @@ class PacientesController < ApplicationController
   end
 
   def paciente_params
-    params.require(:paciente).permit(:nome, :idade, :genero, :endereco, :numero_contato, :email, :historico_medico,
-                                     :alergias, :medicamentos, :preferencias, :contatos_familiares)
+    params.require(:paciente).permit(:nome, :idade, :condicoes, :estado_saude, :cliente_id)
+  end
+
+  def authorize_cliente_or_admin
+    redirect_to root_path, alert: 'Acesso negado!' unless current_usuario.admin? || current_usuario.cliente?
   end
 end

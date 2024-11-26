@@ -1,0 +1,25 @@
+<%= form_with(model: pagamento, local: true) do |f| %>
+  <div>
+    <%= f.label :valor %>
+    <%= f.number_field :valor, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= f.label :status %>
+    <%= f.select :status, Pagamento.statuses.keys.map { |key| [key.humanize, key] } %>
+  </div>
+
+  <div>
+    <%= f.label :cliente_id, 'Cliente' %>
+    <%= f.collection_select :cliente_id, Usuario.clientes, :id, :nome %>
+  </div>
+
+  <div>
+    <%= f.label :servico_id, 'Serviço' %>
+    <%= f.collection_select :servico_id, Servico.all, :id, :nome %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

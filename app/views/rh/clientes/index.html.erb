@@ -1,0 +1,31 @@
+<h1>Gestão de Clientes - Admin</h1>
+
+<% @clientes.each do |status, clientes| %>
+  <h2>Status: <%= status.capitalize %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% clientes.each do |cliente| %>
+        <tr>
+          <td><%= cliente.nome %></td>
+          <td><%= cliente.email %></td>
+          <td><%= cliente.status %></td>
+          <td>
+            <% if cliente.aprovado? || cliente.ativo? %>
+              <%= link_to "Ativar", update_status_admin_cliente_path(cliente, status: "ativo"), method: :patch, class: "btn btn-primary" %>
+              <%= link_to "Desativar", update_status_admin_cliente_path(cliente, status: "inativo"), method: :patch, class: "btn btn-warning" %>
+              <%= link_to "Pausar", update_status_admin_cliente_path(cliente, status: "em_pausa"), method: :patch, class: "btn btn-info" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

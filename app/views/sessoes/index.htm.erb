@@ -1,0 +1,33 @@
+
+<h1>Lista de Sessões</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Data</th>
+      <th>Horário</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sessoes.each do |sessao| %>
+      <tr>
+        <td><%= sessao.id %></td>
+        <td><%= sessao.nome %></td>
+        <td><%= sessao.descricao %></td>
+        <td><%= sessao.data %></td>
+        <td><%= sessao.horario %></td>
+        <td>
+          <%= link_to 'Visualizar', sessao_path(sessao) %> |
+          <%= link_to 'Editar', edit_sesso_path(sessao) %> |
+          <%= link_to 'Excluir', sessao_path(sessao), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nova Sessão', new_sesso_path %>

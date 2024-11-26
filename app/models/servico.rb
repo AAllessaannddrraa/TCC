@@ -1,20 +1,34 @@
 class Servico < ApplicationRecord
+  # Associações
   belongs_to :cliente, class_name: 'Usuario'
-  belongs_to :cuidador, class_name: 'Usuario'
+  belongs_to :cuidador
 
-  validates :data, presence: true
-  validates :hora, presence: true
-end
-class Servico < ApplicationRecord
-  # Associations
-  belongs_to :cliente, class_name: "Usuario"
+  # Enum para status
+  enum status: {
+    pendente: 0,
+    confirmado: 1,
+    concluido: 2,
+    cancelado: 3
+  }
 
-  # Validations
-  validates :nome, :descricao, :preco, :data_agendamento, presence: true
+  # Validações
+  validates :nome, :descricao, :preco, :data_agendamento, :status, presence: true
   validates :preco, numericality: { greater_than_or_equal_to: 0 }
 
-  # Status options
-  STATUS = %w[pendente confirmado cancelado]
+  # Métodos personalizados
 
-  validates :status, inclusion: { in: STATUS }
+  # Retorna se o serviço pode ser alterado ou está bloqueado (finalizado ou cancelado)
+  def editavel?
+    pendente? || agendado? || em_andamento?
+  end
+
+  # Retorna se o serviço foi finalizado
+  def finalizado?
+    concluido? || cancelado?
+  end
+
+  # Métodos auxiliares
+  def status_humanizado
+    Servico.statuses.key(status).humanize
+  end
 end

@@ -1,15 +1,25 @@
-<%= form_with(model: @paciente, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
+<%= form_with(model: paciente, local: true) do |f| %>
+  <div>
+    <%= f.label :nome %>
+    <%= f.text_field :nome %>
   </div>
 
-  <div class="field">
-    <%= form.label :numero_contato %>
-    <%= form.text_field :numero_contato %>
+  <div>
+    <%= f.label :idade %>
+    <%= f.number_field :idade %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div>
+    <%= f.label :condicoes %>
+    <%= f.text_area :condicoes %>
+  </div>
+
+  <div>
+    <%= f.label :estado_saude %>
+    <%= f.select :estado_saude, Paciente.estado_saudes.keys.map { |key| [key.humanize, key] } %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar' %>
   </div>
 <% end %>

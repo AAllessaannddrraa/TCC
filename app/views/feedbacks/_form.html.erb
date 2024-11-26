@@ -1,0 +1,25 @@
+<%= form_with(model: feedback, local: true) do |f| %>
+  <div>
+    <%= f.label :avaliacao %>
+    <%= f.number_field :avaliacao, in: 1..5 %>
+  </div>
+
+  <div>
+    <%= f.label :comentario %>
+    <%= f.text_area :comentario %>
+  </div>
+
+  <div>
+    <%= f.label :cuidador_id, 'Cuidador' %>
+    <%= f.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
+  </div>
+
+  <div>
+    <%= f.label :cliente_id, 'Cliente' %>
+    <%= f.collection_select :cliente_id, Usuario.clientes, :id, :nome %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

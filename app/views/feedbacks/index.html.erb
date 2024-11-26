@@ -1,0 +1,27 @@
+<h1>Lista de Feedbacks</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Avaliação</th>
+      <th>Comentário</th>
+      <th>Cuidador</th>
+      <th>Cliente</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td><%= feedback.avaliacao %></td>
+        <td><%= feedback.comentario %></td>
+        <td><%= feedback.cuidador.nome %></td>
+        <td><%= feedback.cliente.nome %></td>
+        <td>
+          <%= link_to 'Ver', feedback_path(feedback) %>
+          <%= link_to 'Remover', feedback_path(feedback), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Novo Feedback', new_feedback_path, class: 'btn btn-primary' %>

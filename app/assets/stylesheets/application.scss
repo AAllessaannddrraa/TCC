@@ -11,9 +11,23 @@ $text-light: #f8f9fa; // Branco claro
 $background-light: #e9f7ef; // Verde bem claro
 
 // Estilos personalizados
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// Custom styles
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
+  color: #333;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
 }
 
 // Estilo do Hero Section
@@ -60,6 +74,7 @@ body {
 // Navbar
 .navbar {
   background-color: $secondary-color;
+  margin-bottom: 20px;
 
   .navbar-brand img {
     max-height: 50px;
@@ -73,9 +88,16 @@ body {
   }
 }
 
+.container {
+  padding-top: 20px;
+}
+
 // Footer
 .footer {
-  background-color: $primary-color;
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #e7e7e7;
   color: $text-light;
 
   a {
@@ -85,5 +107,36 @@ body {
     &:hover {
       color: white;
     }
+  }
+}
+
+.bg-secondary-light {
+  background-color: #f8f9fa; /* Ajuste para o tom claro */
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.rounded-lg {
+  border-radius: 10px;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .jumbotron {
+    width: 100%;
   }
 }

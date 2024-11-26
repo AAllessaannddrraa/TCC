@@ -1,0 +1,22 @@
+<h1>Gestão de Apoios - Supervisora</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @apoios.each do |apoio| %>
+      <tr>
+        <td><%= apoio.nome %></td>
+        <td><%= apoio.status %></td>
+        <td>
+          <%= link_to 'Ativar', supervisora_apoio_path(apoio, status: 'ativo'), method: :patch, class: 'btn btn-success' %>
+          <%= link_to 'Desativar', supervisora_apoio_path(apoio, status: 'inativo'), method: :patch, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

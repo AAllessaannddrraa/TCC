@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_26_034529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,11 +42,54 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "apoio_tipo_servicos", force: :cascade do |t|
+    t.bigint "apoio_id", null: false
+    t.bigint "tipo_servico_id", null: false
+    t.text "descricao_detalhada"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apoio_id"], name: "index_apoio_tipo_servicos_on_apoio_id"
+    t.index ["tipo_servico_id"], name: "index_apoio_tipo_servicos_on_tipo_servico_id"
+  end
+
+  create_table "apoios", force: :cascade do |t|
+    t.bigint "cliente_id", null: false
+    t.bigint "supervisora_id"
+    t.text "descricao"
+    t.string "status"
+    t.date "data_inicio"
+    t.date "data_fim"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_apoios_on_cliente_id"
+    t.index ["supervisora_id"], name: "index_apoios_on_supervisora_id"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "clientes", force: :cascade do |t|
+    t.string "nome"
+    t.string "email"
+    t.string "telefone"
+    t.string "endereco"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cuidador_treinamentos", force: :cascade do |t|
+    t.bigint "cuidador_id", null: false
+    t.bigint "treinamento_id", null: false
+    t.date "data_inicio"
+    t.date "data_fim"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cuidador_id"], name: "index_cuidador_treinamentos_on_cuidador_id"
+    t.index ["treinamento_id"], name: "index_cuidador_treinamentos_on_treinamento_id"
   end
 
   create_table "cuidadores", force: :cascade do |t|
@@ -77,9 +120,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.string "gestor_responsavel"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "ativo"
+    t.string "status", default: "cadastrado"
     t.index ["email"], name: "index_cuidadores_on_email", unique: true
     t.index ["nif"], name: "index_cuidadores_on_nif", unique: true
     t.index ["numero_contato"], name: "index_cuidadores_on_numero_contato", unique: true
+  end
+
+  create_table "equipamentos", force: :cascade do |t|
+    t.string "nome"
+    t.text "descricao"
+    t.bigint "apoio_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apoio_id"], name: "index_equipamentos_on_apoio_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -89,6 +143,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["usuario_id"], name: "index_notifications_on_usuario_id"
+  end
+
+  create_table "pacientes", force: :cascade do |t|
+    t.string "nome", null: false
+    t.integer "idade", null: false
+    t.text "condicoes", null: false
+    t.integer "estado_saude", default: 0
+    t.bigint "cliente_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_pacientes_on_cliente_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -101,6 +166,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.index ["solicitation_id"], name: "index_payments_on_solicitation_id"
   end
 
+  create_table "relatorios", force: :cascade do |t|
+    t.bigint "apoio_id", null: false
+    t.text "conteudo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["apoio_id"], name: "index_relatorios_on_apoio_id"
+  end
+
   create_table "servicos", force: :cascade do |t|
     t.string "nome", null: false
     t.text "descricao", null: false
@@ -110,6 +183,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.string "status", default: "pendente"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cuidador_id"
     t.index ["cliente_id"], name: "index_servicos_on_cliente_id"
   end
 
@@ -124,10 +198,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.index ["servico_id"], name: "index_solicitations_on_servico_id"
   end
 
+  create_table "tipo_servicos", force: :cascade do |t|
+    t.string "nome"
+    t.text "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tipos_servicos", force: :cascade do |t|
+    t.string "nome"
+    t.text "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "treinamentos", force: :cascade do |t|
+    t.string "nome"
+    t.text "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "usuarios", force: :cascade do |t|
     t.string "nome", null: false
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", null: false
+    t.string "password_digest"
+    t.string "papel", default: "usuario"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "necessidades"
@@ -136,17 +232,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_23_111018) do
     t.text "especializacoes"
     t.string "disponibilidade"
     t.text "regioes_atendimento"
-    t.string "password_digest"
     t.string "otp_secret"
     t.string "role"
-    t.string "papel"
+    t.string "encrypted_password"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "apoio_tipo_servicos", "apoios"
+  add_foreign_key "apoio_tipo_servicos", "tipo_servicos"
+  add_foreign_key "apoios", "usuarios", column: "cliente_id"
+  add_foreign_key "apoios", "usuarios", column: "supervisora_id"
+  add_foreign_key "cuidador_treinamentos", "cuidadores", column: "cuidador_id"
+  add_foreign_key "cuidador_treinamentos", "treinamentos"
+  add_foreign_key "equipamentos", "apoios"
   add_foreign_key "notifications", "usuarios"
+  add_foreign_key "pacientes", "clientes"
   add_foreign_key "payments", "solicitations"
+  add_foreign_key "relatorios", "apoios"
   add_foreign_key "servicos", "usuarios", column: "cliente_id"
   add_foreign_key "solicitations", "servicos"
   add_foreign_key "solicitations", "usuarios", column: "cliente_id"

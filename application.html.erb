@@ -4,76 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sistema de gestão e apoio domiciliar que prioriza confiança e qualidade.">
-  <title>Apoiar System</title>
+  <title>SeuApp</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <!-- Styles -->
-  <%= stylesheet_link_tag "application", media: "all" %>
-  <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' %>
-  <%= javascript_importmap_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-        <img src="https://via.placeholder.com/150x40?text=LOGO" alt="Apoiar System" height="40">
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#sobre">Sobre Nós</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#servicos">Serviços</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#orcamento">Orçamento</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-primary nav-link text-white" href="<%= new_usuario_session_path %>">Login</a>
-          </li>
-        </ul>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">SeuApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero text-center text-white d-flex align-items-center" style="background: url('https://via.placeholder.com/1920x1080?text=Hero+Image') no-repeat center center/cover; height: 100vh;">
-    <div class="container">
-      <h1 class="display-4 fw-bold">Seu Apoio Domiciliar de Confiança</h1>
-      <p class="lead mt-3">Serviços personalizados para suas necessidades com cuidado e qualidade.</p>
-      <a href="#orcamento" class="btn btn-lg btn-light mt-4">Solicitar Orçamento</a>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <main class="container mt-5">
+  <div class="container">
     <%= yield %>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer class="footer text-white py-4">
-    <div class="container text-center">
-      <p>&copy; <%= Time.now.year %> Apoiar System. Todos os direitos reservados.</p>
-      <p>
-        <a href="#" class="text-white text-decoration-none mx-2">Política de Privacidade</a> |
-        <a href="#" class="text-white text-decoration-none mx-2">Termos de Uso</a>
-      </p>
-    </div>
+  <footer class="footer">
+    <p>&copy; 2024 SeuApp. Todos os direitos reservados.</p>
   </footer>
 </body>
 </html>

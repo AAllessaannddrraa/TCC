@@ -1,7 +1,7 @@
 # app/controllers/feedbacks_controller.rb
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: %i[show edit update destroy]
-  before_action :require_login # Proteção de login
+  before_action :set_feedback, only: %i[show destroy]
+  before_action :authenticate_usuario!
 
   def index
     @feedbacks = Feedback.all
@@ -16,10 +16,8 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = Feedback.new(feedback_params)
     if @feedback.save
-      flash[:success] = 'Feedback criado com sucesso.'
-      redirect_to @feedback
+      redirect_to feedbacks_path, notice: "Feedback enviado com sucesso."
     else
-      flash.now[:danger] = 'Erro ao criar feedback.'
       render :new
     end
   end
@@ -38,8 +36,7 @@ class FeedbacksController < ApplicationController
 
   def destroy
     @feedback.destroy
-    flash[:success] = 'Feedback excluído com sucesso.'
-    redirect_to feedbacks_url
+    redirect_to feedbacks_path, notice: "Feedback removido."
   end
 
   private
@@ -49,6 +46,6 @@ class FeedbacksController < ApplicationController
   end
 
   def feedback_params
-    params.require(:feedback).permit(:nivel_satisfacao, :cuidador_id, :paciente_id, :comentarios)
+    params.require(:feedback).permit(:avaliacao, :comentario, :cuidador_id, :cliente_id)
   end
 end

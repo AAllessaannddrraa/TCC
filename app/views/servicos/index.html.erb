@@ -1,16 +1,13 @@
-<h1>Serviços</h1>
-
-<%= link_to 'Novo Serviço', new_servico_path, class: "btn btn-primary" if current_usuario&.admin? %>
-
-<table class="table">
+<!-- Arquivo: app/views/servicos/index.html.erb -->
+<h1>Lista de Serviços</h1>
+<table>
   <thead>
     <tr>
       <th>Nome</th>
       <th>Descrição</th>
       <th>Preço</th>
-      <th>Data de Agendamento</th>
-      <th>Cuidador</th>
       <th>Status</th>
+      <th>Tipo</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -20,16 +17,15 @@
         <td><%= servico.nome %></td>
         <td><%= servico.descricao %></td>
         <td><%= number_to_currency(servico.preco) %></td>
-        <td><%= servico.data_agendamento %></td>
-        <td><%= servico.cuidador.nome if servico.cuidador %></td>
-        <td><%= servico.status %></td>
+        <td><%= servico.status.humanize %></td>
+        <td><%= servico.tipo_servico.nome %></td>
         <td>
-          <%= link_to 'Mostrar', servico %>
-          <%= link_to 'Editar', edit_servico_path(servico) if current_usuario&.admin? %>
-          <%= link_to 'Excluir', servico, method: :delete, data: { confirm: 'Tem certeza?' } if current_usuario&.admin? %>
-          <%= link_to 'Confirmar', confirmar_servico_path(servico), method: :patch, data: { confirm: 'Tem certeza?' } if current_usuario&.admin? && servico.status != 'confirmado' %>
+          <%= link_to 'Ver', servico_path(servico) %>
+          <%= link_to 'Editar', edit_servico_path(servico) %>
+          <%= link_to 'Deletar', servico_path(servico), method: :delete, data: { confirm: 'Tem certeza?' } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= link_to 'Novo Serviço', new_servico_path, class: 'btn btn-primary' %>

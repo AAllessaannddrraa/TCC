@@ -1,0 +1,25 @@
+<%= form_with(model: cliente, local: true) do |f| %>
+  <div>
+    <%= f.label :nome %>
+    <%= f.text_field :nome %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :numero_contato %>
+    <%= f.text_field :numero_contato %>
+  </div>
+
+  <div>
+    <%= f.label :status %>
+    <%= f.select :status, Cliente.statuses.keys.map { |key| [key.humanize, key] } %>
+  </div>
+
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

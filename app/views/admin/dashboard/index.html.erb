@@ -1,0 +1,45 @@
+<h1>Admin Dashboard</h1>
+<p>Bem-vindo ao painel administrativo.</p>
+
+<h2>Usuários</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= usuario.nome %></td>
+        <td><%= usuario.email %></td>
+        <td>
+          <%= link_to 'Ver', admin_usuario_path(usuario) %>
+          <%= link_to 'Deletar', admin_usuario_path(usuario), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Relatórios</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.titulo %></td>
+        <td>
+          <%= link_to 'Ver', admin_report_path(report) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

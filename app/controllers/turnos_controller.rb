@@ -1,7 +1,7 @@
 # app/controllers/turnos_controller.rb
 class TurnosController < ApplicationController
   before_action :set_turno, only: %i[show edit update destroy]
-  before_action :require_login # Adicionando proteção de login para acesso
+  before_action :authenticate_usuario!
 
   def index
     @turnos = Turno.all
@@ -16,10 +16,8 @@ class TurnosController < ApplicationController
   def create
     @turno = Turno.new(turno_params)
     if @turno.save
-      flash[:success] = 'Turno criado com sucesso.'
-      redirect_to @turno
+      redirect_to turnos_path, notice: "Turno criado com sucesso."
     else
-      flash.now[:danger] = 'Erro ao criar turno. Verifique os campos.'
       render :new
     end
   end
@@ -28,18 +26,15 @@ class TurnosController < ApplicationController
 
   def update
     if @turno.update(turno_params)
-      flash[:success] = 'Turno atualizado com sucesso.'
-      redirect_to @turno
+      redirect_to turnos_path, notice: "Turno atualizado com sucesso."
     else
-      flash.now[:danger] = 'Erro ao atualizar turno.'
       render :edit
     end
   end
 
   def destroy
     @turno.destroy
-    flash[:success] = 'Turno excluído com sucesso.'
-    redirect_to turnos_url
+    redirect_to turnos_path, notice: "Turno removido."
   end
 
   private
@@ -49,6 +44,6 @@ class TurnosController < ApplicationController
   end
 
   def turno_params
-    params.require(:turno).permit(:data, :hora_inicio, :hora_fim, :cuidador_id, :paciente_id)
+    params.require(:turno).permit(:data_inicio, :data_fim, :status, :cuidador_id, :servico_id)
   end
 end

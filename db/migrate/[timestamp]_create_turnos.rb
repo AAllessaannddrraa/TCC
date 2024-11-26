@@ -1,13 +1,11 @@
-class CreateTurnos < ActiveRecord::Migration[6.1]
+class CreateTurnos < ActiveRecord::Migration[7.1]
   def change
     create_table :turnos do |t|
-      t.references :cuidador, foreign_key: true
-      t.references :paciente, foreign_key: true
-      t.date :data
-      t.time :hora_inicio
-      t.time :hora_fim
-      t.text :observacoes
-      t.integer :proximo_turno_cuidador
+      t.datetime :data_inicio
+      t.datetime :data_fim
+      t.integer :status, default: 0
+      t.references :cuidador, foreign_key: { to_table: :cuidadores }
+      t.references :servico, foreign_key: true
 
       t.timestamps
     end

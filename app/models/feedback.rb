@@ -1,9 +1,10 @@
 # app/models/feedback.rb
 class Feedback < ApplicationRecord
-  belongs_to :paciente
   belongs_to :cuidador
+  belongs_to :cliente, class_name: "Usuario"
 
-  validates :nivel_satisfacao, presence: true
+  validates :avaliacao, presence: true, numericality: { in: 1..5 }
+  validates :comentario, length: { maximum: 500 }
 
   # Example method for creating fake Feedback data for testing
   def self.create_fake_feedbacks(count = 10)

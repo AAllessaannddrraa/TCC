@@ -1,0 +1,8 @@
+<h1>Detalhes do Pagamento</h1>
+
+<p><strong>Cliente:</strong> <%= @payment.cliente.nome %></p>
+<p><strong>Valor:</strong> <%= number_to_currency(@payment.valor) %></p>
+<p><strong>Data:</strong> <%= @payment.data %></p>
+<p><strong>Status:</strong> <%= @payment.status %></p>
+
+<%= link_to 'Voltar', financeiro_payments_path, class: 'btn btn-secondary' %>

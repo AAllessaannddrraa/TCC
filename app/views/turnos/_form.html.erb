@@ -1,4 +1,4 @@
-<%= form_with(model: turno, local: true) do |form| %>
+<%= form_with(model: turno, local: true) do |f| %>
   <% if turno.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(turno.errors.count, "erro") %> proibiu este turno de ser salvo:</h2>
@@ -11,31 +11,31 @@
   <% end %>
 
   <div>
-    <%= form.label :data %>
-    <%= form.date_field :data %>
+    <%= f.label :data_inicio %>
+    <%= f.datetime_select :data_inicio %>
   </div>
 
   <div>
-    <%= form.label :hora_inicio, "Hora de Início" %>
-    <%= form.time_field :hora_inicio %>
+    <%= f.label :data_fim %>
+    <%= f.datetime_select :data_fim %>
   </div>
 
   <div>
-    <%= form.label :hora_fim, "Hora de Fim" %>
-    <%= form.time_field :hora_fim %>
+    <%= f.label :status %>
+    <%= f.select :status, Turno.statuses.keys.map { |key| [key.humanize, key] } %>
   </div>
 
   <div>
-    <%= form.label :cuidador_id, "Cuidador" %>
-    <%= form.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
+    <%= f.label :cuidador_id, 'Cuidador' %>
+    <%= f.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
   </div>
 
   <div>
-    <%= form.label :paciente_id, "Paciente" %>
-    <%= form.collection_select :paciente_id, Paciente.all, :id, :nome %>
+    <%= f.label :servico_id, 'Serviço' %>
+    <%= f.collection_select :servico_id, Servico.all, :id, :nome %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= f.submit 'Salvar' %>
   </div>
 <% end %>

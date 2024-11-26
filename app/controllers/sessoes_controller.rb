@@ -1,30 +1,50 @@
-# app/controllers/sessoes_controller.rb
+
 class SessoesController < ApplicationController
-  def criar
-    usuario = Usuario.find_by(email: params[:email])
-    if usuario&.authenticate(params[:password])
-      session[:usuario_id] = usuario.id
-      # Envia o email com o código de verificação 2FA
-      UsuarioMailer.otp_email(usuario, usuario.current_otp).deliver_now
-      redirect_to verificar_2fa_path # Redireciona para a página de verificação de 2FA
+  before_action :set_sessao, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @sessoes = Sessao.all
+  end
+
+  def show
+  end
+
+  def new
+    @sessao = Sessao.new
+  end
+
+  def create
+    @sessao = Sessao.new(sessao_params)
+    if @sessao.save
+      redirect_to sessoes_path, notice: 'Sessão criada com sucesso.'
     else
-      flash[:alert] = 'Email ou senha inválidos.'
-      render :novo
+      render :new
     end
   end
 
-  def verificar_2fa
-    @usuario = Usuario.find(session[:usuario_id])
+  def edit
   end
 
-  def confirmar_2fa
-    @usuario = Usuario.find(session[:usuario_id])
-    if @usuario.validate_otp(params[:otp_code])
-      flash[:notice] = 'Login realizado com sucesso.'
-      redirect_to root_path
+  def update
+    if @sessao.update(sessao_params)
+      redirect_to sessoes_path, notice: 'Sessão atualizada com sucesso.'
     else
-      flash[:alert] = 'Código de verificação inválido.'
-      render :verificar_2fa
+      render :edit
     end
+  end
+
+  def destroy
+    @sessao.destroy
+    redirect_to sessoes_path, notice: 'Sessão removida com sucesso.'
+  end
+
+  private
+
+  def set_sessao
+    @sessao = Sessao.find(params[:id])
+  end
+
+  def sessao_params
+    params.require(:sessao).permit(:nome, :descricao, :data, :horario)
   end
 end

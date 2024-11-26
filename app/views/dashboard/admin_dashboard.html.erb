@@ -1,4 +1,3 @@
-
 <h1 class="text-center">Dashboard Administrativo</h1>
 
 <div class="container mt-4">
@@ -33,16 +32,32 @@
         </tr>
       </thead>
       <tbody>
-        <% @recent_combinations.each do |solicitation| %>
+        <% @recent_solicitations.each do |solicitation| %>
           <tr>
             <td><%= solicitation.cliente.nome %></td>
             <td><%= solicitation.servico.nome %></td>
-            <td><%= solicitation.status.capitalize %></td>
-            <td><%= solicitation.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+            <td><%= solicitation.status %></td>
+            <td><%= solicitation.created_at.strftime("%d/%m/%Y") %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+  </div>
+
+  <div class="admin-reports mt-4">
+    <h2>Relatórios Consolidados</h2>
+    <ul>
+      <li><%= link_to 'Relatório de Usuários', admin_usuarios_path %></li>
+      <li><%= link_to 'Relatório Financeiro', admin_reports_path %></li>
+    </ul>
+  </div>
+
+  <div class="admin-actions mt-4">
+    <h2>Ações Administrativas</h2>
+    <ul>
+      <li><%= link_to 'Gerenciar Usuários', admin_usuarios_path %></li>
+      <li><%= link_to 'Acessar Solicitações', supervisora_apoios_path %></li>
+    </ul>
   </div>
 </div>
 

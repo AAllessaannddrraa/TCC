@@ -1,5 +1,8 @@
 class AddPasswordDigestToUsuarios < ActiveRecord::Migration[7.1]
   def change
-    add_column :usuarios, :password_digest, :string
+    # Verifique se a coluna já existe antes de tentar adicioná-la
+    unless column_exists?(:usuarios, :encrypted_password)
+      add_column :usuarios, :encrypted_password, :string, null: false, default: ""
+    end
   end
 end

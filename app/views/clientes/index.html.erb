@@ -1,0 +1,27 @@
+<h1>Lista de Clientes</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Contato</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clientes.each do |cliente| %>
+      <tr>
+        <td><%= cliente.nome %></td>
+        <td><%= cliente.email %></td>
+        <td><%= cliente.numero_contato %></td>
+        <td><%= cliente.status.humanize %></td>
+        <td>
+          <%= link_to 'Ver', cliente_path(cliente) %>
+          <%= link_to 'Editar', edit_cliente_path(cliente) if current_usuario.admin? || current_usuario.rh? %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Novo Cliente', new_cliente_path, class: 'btn btn-primary' %>

@@ -1,0 +1,27 @@
+<h1>Lista de Pagamentos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Valor</th>
+      <th>Status</th>
+      <th>Cliente</th>
+      <th>Serviço</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pagamentos.each do |pagamento| %>
+      <tr>
+        <td><%= number_to_currency(pagamento.valor) %></td>
+        <td><%= pagamento.status.humanize %></td>
+        <td><%= pagamento.cliente.nome %></td>
+        <td><%= pagamento.servico.nome %></td>
+        <td>
+          <%= link_to 'Ver', pagamento_path(pagamento) %>
+          <%= link_to 'Remover', pagamento_path(pagamento), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Novo Pagamento', new_pagamento_path, class: 'btn btn-primary' %>

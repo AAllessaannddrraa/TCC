@@ -1,26 +1,12 @@
 class ServicosController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :ensure_admin, only: [:new, :create, :edit, :update, :destroy, :confirmar]
-  before_action :set_servico, only: [:show, :edit, :update, :destroy, :confirmar]
-
-  def calendar_events
-    servicos = Servico.all
-    events = servicos.map do |servico|
-      {
-        title: servico.nome,
-        start: servico.data_agendamento.strftime('%Y-%m-%dT%H:%M:%S'),
-        id: servico.id
-      }
-    end
-    render json: events
-  end
+  before_action :set_servico, only: %i[show edit update destroy aprovar reprovar ativar desativar pausar]
 
   def index
-    @servicos = Servico.all
+    @servicos = Servico.includes(:tipo_servico, :cliente, :cuidador).order(created_at: :desc)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @servico = Servico.new
@@ -29,34 +15,51 @@ class ServicosController < ApplicationController
   def create
     @servico = Servico.new(servico_params)
     if @servico.save
-      redirect_to @servico, notice: 'Serviço criado com sucesso.'
+      redirect_to servicos_path, notice: 'Serviço cadastrado com sucesso.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @servico.update(servico_params)
-      redirect_to @servico, notice: 'Serviço atualizado com sucesso.'
+      redirect_to servicos_path, notice: 'Serviço atualizado com sucesso.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @servico.destroy
-    redirect_to servicos_url, notice: 'Serviço excluído com sucesso.'
+    redirect_to servicos_path, notice: 'Serviço removido com sucesso.'
   end
 
-  def confirmar
-    if @servico.update(status: 'confirmado')
-      redirect_to servicos_path, notice: 'Serviço confirmado com sucesso.'
-    else
-      redirect_to servicos_path, alert: 'Erro ao confirmar serviço.'
-    end
+  # Métodos de status
+  def aprovar
+    @servico.aprovado!
+    redirect_to servicos_path, notice: 'Serviço aprovado.'
+  end
+
+  def reprovar
+    @servico.reprovado!
+    redirect_to servicos_path, notice: 'Serviço reprovado.'
+  end
+
+  def ativar
+    @servico.ativo!
+    redirect_to servicos_path, notice: 'Serviço ativado.'
+  end
+
+  def desativar
+    @servico.inativo!
+    redirect_to servicos_path, notice: 'Serviço desativado.'
+  end
+
+  def pausar
+    @servico.pausado!
+    redirect_to servicos_path, notice: 'Serviço pausado.'
   end
 
   private
@@ -66,7 +69,7 @@ class ServicosController < ApplicationController
   end
 
   def servico_params
-    params.require(:servico).permit(:nome, :descricao, :preco, :data_agendamento, :cuidador_id)
+    params.require(:servico).permit(:nome, :descricao, :preco, :status, :tipo_servico_id, :cliente_id, :cuidador_id, :data_agendamento)
   end
 
   def ensure_admin

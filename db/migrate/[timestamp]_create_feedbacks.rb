@@ -1,12 +1,10 @@
-class CreateFeedbacks < ActiveRecord::Migration[6.1]
+class CreateFeedbacks < ActiveRecord::Migration[7.1]
   def change
     create_table :feedbacks do |t|
-      t.references :paciente, foreign_key: true
+      t.integer :avaliacao
+      t.text :comentario
       t.references :cuidador, foreign_key: true
-      t.date :data
-      t.integer :nivel_satisfacao
-      t.text :comentarios
-      t.text :reclamacao
+      t.references :cliente, foreign_key: { to_table: :usuarios }
 
       t.timestamps
     end

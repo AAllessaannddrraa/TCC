@@ -1,0 +1,28 @@
+
+<h1>Editar Sessão</h1>
+
+<%= form_with(model: @sessao, local: true) do |form| %>
+  <div>
+    <%= form.label :nome %>
+    <%= form.text_field :nome, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :descricao %>
+    <%= form.text_area :descricao, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :data %>
+    <%= form.date_field :data, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :horario %>
+    <%= form.time_field :horario, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+  </div>
+<% end %>

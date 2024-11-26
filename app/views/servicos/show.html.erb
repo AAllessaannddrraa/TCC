@@ -1,12 +1,21 @@
-
 <h1>Detalhes do Serviço</h1>
+
 <p><strong>Nome:</strong> <%= @servico.nome %></p>
 <p><strong>Descrição:</strong> <%= @servico.descricao %></p>
 <p><strong>Preço:</strong> <%= number_to_currency(@servico.preco) %></p>
-<p><strong>Data do Agendamento:</strong> <%= @servico.data_agendamento.strftime('%d/%m/%Y %H:%M') if @servico.data_agendamento %></p>
-<p><strong>Status:</strong> <%= @servico.status.capitalize %></p>
+<p><strong>Tipo de Serviço:</strong> <%= @servico.tipo_servico.nome %></p>
+<p><strong>Status:</strong> <%= @servico.status.humanize %></p>
+<p><strong>Cliente:</strong> <%= @servico.cliente.nome %></p>
 
-<%= link_to "Voltar para Lista", servicos_path, class: "btn btn-primary" %>
-<% if @servico.status != 'confirmado' %>
-  <%= link_to "Confirmar Serviço", confirmar_servico_path(@servico), method: :post, class: "btn btn-success" %>
+<% if @servico.status == "cadastrado" || @servico.status == "cadastro_em_andamento" %>
+  <%= link_to 'Aprovar', aprovar_servico_path(@servico), method: :patch, class: 'btn btn-success' %>
+  <%= link_to 'Reprovar', reprovar_servico_path(@servico), method: :patch, class: 'btn btn-danger' %>
 <% end %>
+
+<% if @servico.status == "aprovado" %>
+  <%= link_to 'Ativar', ativar_servico_path(@servico), method: :patch, class: 'btn btn-success' %>
+  <%= link_to 'Pausar', pausar_servico_path(@servico), method: :patch, class: 'btn btn-warning' %>
+  <%= link_to 'Desativar', desativar_servico_path(@servico), method: :patch, class: 'btn btn-danger' %>
+<% end %>
+
+<%= link_to 'Voltar', servicos_path, class: 'btn btn-secondary' %>

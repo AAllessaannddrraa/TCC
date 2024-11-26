@@ -1,0 +1,25 @@
+<h1>Gestão de Cuidadores - RH</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cuidadores.each do |cuidador| %>
+      <tr>
+        <td><%= cuidador.nome %></td>
+        <td><%= cuidador.email %></td>
+        <td><%= cuidador.status %></td>
+        <td>
+          <%= link_to 'Aprovar', rh_cuidador_path(cuidador, status: 'aprovado'), method: :patch, class: 'btn btn-success' %>
+          <%= link_to 'Reprovar', rh_cuidador_path(cuidador, status: 'reprovado'), method: :patch, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

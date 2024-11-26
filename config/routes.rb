@@ -7,50 +7,30 @@ Rails.application.routes.draw do
     get '/login', to: 'devise/sessions#new'
   end
 
-  # Usuarios routes
-  resources :usuarios, only: [:new, :create, :edit, :update, :destroy] do
-    collection do
-      get :recover_password
-    end
+  # Rota para "/adm"
+  get '/adm', to: redirect('/admin/dashboard')
+
+  # Namespace for administrative actions
+  namespace :admin do
+    resources :usuarios, only: [:index, :show, :destroy]
+    resources :reports, only: [:index, :show]
+    get 'dashboard', to: 'dashboard#index'
+    resources :cuidadores, only: [:index]
   end
 
-  # Solicitations routes
-  resources :solicitations, only: [:index, :show, :update]
+  namespace :rh do
+    resources :cuidadores, only: [:index, :update]
+  end
 
-  # Payments routes
-  resources :payments, only: [:index, :show, :new, :create, :destroy]
+  namespace :supervisora do
+    resources :apoios, only: [:index, :update]
+  end
 
-  # Notifications routes
-  resources :notifications, only: [:index, :update, :destroy]
-
-  # Cuidadores routes
-  resources :cuidadores
-
-  # Pacientes routes
+  resources :servicos, only: [:index, :show, :create, :update]
+  resources :usuarios, only: [:show, :update]
+  resources :clientes
   resources :pacientes
-
-  # Turnos routes
   resources :turnos
-
-  # Serviços routes
-  resources :servicos do
-    member do
-      patch :confirmar
-    end
-    collection do
-      get :calendar_events
-    end
-  end
-
-  # Sessoes routes
-  resources :sessoes
-
-  # Reports routes
-  resources :reports
-
-  # Home matches routes
-  resources :home_matches
-
-  # Dashboard routes
-  get 'dashboard/admin_dashboard', to: 'dashboard#admin_dashboard', as: 'dashboard'
+  resources :feedbacks
+  resources :pagamentos
 end

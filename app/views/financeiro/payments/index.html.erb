@@ -1,0 +1,25 @@
+<h1>Pagamentos</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Cliente</th>
+      <th>Valor</th>
+      <th>Data</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.cliente.nome %></td>
+        <td><%= number_to_currency(payment.valor) %></td>
+        <td><%= payment.data %></td>
+        <td><%= payment.status %></td>
+        <td>
+          <%= link_to 'Ver', financeiro_payment_path(payment) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

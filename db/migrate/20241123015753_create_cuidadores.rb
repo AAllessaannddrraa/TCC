@@ -3,36 +3,24 @@ class CreateCuidadores < ActiveRecord::Migration[7.1]
   def change
     create_table :cuidadores do |t|
       t.string :nome, null: false
-      t.date :data_nascimento
-      t.string :genero
-      t.string :nif, null: false
-      t.string :nic
-      t.string :endereco
-      t.string :telefone_principal
-      t.string :telefone_secundario
-      t.string :email, null: false
-      t.string :numero_contato, null: false
-      t.integer :experiencia
-      t.text :especializacoes
-      t.text :certificacoes
-      t.text :disponibilidade
-      t.text :idiomas
-      t.text :habilidades
-      t.text :tipos_servicos
-      t.string :nacionalidade
-      t.string :codigo_pais_telefone
-      t.string :telefone_emergencia
-      t.text :filhos_e_idades
-      t.text :formacao
-      t.text :certidao_criminal
-      t.string :status_selecao
-      t.string :gestor_responsavel
+      t.string :nif, null: false, unique: true
+      t.string :email, null: false, unique: true
+      t.string :numero_contato, null: false, unique: true
+      t.integer :status, default: 0
 
       t.timestamps
+    endclass CreateCuidadores < ActiveRecord::Migration[7.1]
+    def change
+      create_table :cuidadores do |t|
+        t.string :nome, null: false
+        t.string :email, null: false, index: { unique: true }
+        t.string :numero_contato, null: false, index: { unique: true }
+        t.string :nif, null: false, index: { unique: true }
+        t.boolean :ativo, default: true
+        t.timestamps
+      end
     end
+  end
 
-    add_index :cuidadores, :nif, unique: true
-    add_index :cuidadores, :email, unique: true
-    add_index :cuidadores, :numero_contato, unique: true
   end
 end
