@@ -1,9 +1,9 @@
 class ServicosController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_servico, only: %i[show edit update destroy aprovar reprovar ativar desativar pausar]
+  before_action :set_servico, only: %i[show edit update destroy]
 
   def index
-    @servicos = Servico.includes(:tipo_servico, :cliente, :cuidador).order(created_at: :desc)
+    @servicos = Servico.all
   end
 
   def show; end
@@ -15,9 +15,9 @@ class ServicosController < ApplicationController
   def create
     @servico = Servico.new(servico_params)
     if @servico.save
-      redirect_to servicos_path, notice: 'Serviço cadastrado com sucesso.'
+      redirect_to @servico, notice: 'Serviço criado com sucesso.'
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -25,41 +25,15 @@ class ServicosController < ApplicationController
 
   def update
     if @servico.update(servico_params)
-      redirect_to servicos_path, notice: 'Serviço atualizado com sucesso.'
+      redirect_to @servico, notice: 'Serviço atualizado com sucesso.'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   def destroy
     @servico.destroy
-    redirect_to servicos_path, notice: 'Serviço removido com sucesso.'
-  end
-
-  # Métodos de status
-  def aprovar
-    @servico.aprovado!
-    redirect_to servicos_path, notice: 'Serviço aprovado.'
-  end
-
-  def reprovar
-    @servico.reprovado!
-    redirect_to servicos_path, notice: 'Serviço reprovado.'
-  end
-
-  def ativar
-    @servico.ativo!
-    redirect_to servicos_path, notice: 'Serviço ativado.'
-  end
-
-  def desativar
-    @servico.inativo!
-    redirect_to servicos_path, notice: 'Serviço desativado.'
-  end
-
-  def pausar
-    @servico.pausado!
-    redirect_to servicos_path, notice: 'Serviço pausado.'
+    redirect_to servicos_url, notice: 'Serviço deletado com sucesso.'
   end
 
   private
@@ -69,7 +43,7 @@ class ServicosController < ApplicationController
   end
 
   def servico_params
-    params.require(:servico).permit(:nome, :descricao, :preco, :status, :tipo_servico_id, :cliente_id, :cuidador_id, :data_agendamento)
+    params.require(:servico).permit(:nome, :descricao, :preco)
   end
 
   def ensure_admin

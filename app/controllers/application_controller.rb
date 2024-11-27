@@ -65,4 +65,8 @@ class ApplicationController < ActionController::Base
       root_path
     end
   end
+
+  def not_found
+    render plain: "404 Not Found", status: :not_found
+  end
 end

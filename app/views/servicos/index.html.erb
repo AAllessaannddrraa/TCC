@@ -1,13 +1,12 @@
 <!-- Arquivo: app/views/servicos/index.html.erb -->
-<h1>Lista de Serviços</h1>
-<table>
+<h1>Serviços</h1>
+<%= link_to "Novo Serviço", new_servico_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Nome</th>
       <th>Descrição</th>
       <th>Preço</th>
-      <th>Status</th>
-      <th>Tipo</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -17,15 +16,12 @@
         <td><%= servico.nome %></td>
         <td><%= servico.descricao %></td>
         <td><%= number_to_currency(servico.preco) %></td>
-        <td><%= servico.status.humanize %></td>
-        <td><%= servico.tipo_servico.nome %></td>
         <td>
-          <%= link_to 'Ver', servico_path(servico) %>
-          <%= link_to 'Editar', edit_servico_path(servico) %>
-          <%= link_to 'Deletar', servico_path(servico), method: :delete, data: { confirm: 'Tem certeza?' } %>
+          <%= link_to "Mostrar", servico_path(servico), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_servico_path(servico), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", servico_path(servico), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Serviço', new_servico_path, class: 'btn btn-primary' %>

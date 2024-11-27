@@ -1,11 +1,11 @@
-<h1>Lista de Clientes</h1>
-<table>
+<h1>Clientes</h1>
+<%= link_to "Novo Cliente", new_cliente_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Nome</th>
       <th>Email</th>
-      <th>Contato</th>
-      <th>Status</th>
+      <th>Telefone</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -14,14 +14,13 @@
       <tr>
         <td><%= cliente.nome %></td>
         <td><%= cliente.email %></td>
-        <td><%= cliente.numero_contato %></td>
-        <td><%= cliente.status.humanize %></td>
+        <td><%= cliente.telefone %></td>
         <td>
-          <%= link_to 'Ver', cliente_path(cliente) %>
-          <%= link_to 'Editar', edit_cliente_path(cliente) if current_usuario.admin? || current_usuario.rh? %>
+          <%= link_to "Mostrar", cliente_path(cliente), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_cliente_path(cliente), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", cliente_path(cliente), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Cliente', new_cliente_path, class: 'btn btn-primary' %>

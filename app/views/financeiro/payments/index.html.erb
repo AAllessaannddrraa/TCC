@@ -1,5 +1,6 @@
 <h1>Pagamentos</h1>
-<table>
+<%= link_to "Novo Pagamento", new_financeiro_payment_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Cliente</th>
@@ -17,7 +18,9 @@
         <td><%= payment.data %></td>
         <td><%= payment.status %></td>
         <td>
-          <%= link_to 'Ver', financeiro_payment_path(payment) %>
+          <%= link_to "Mostrar", financeiro_payment_path(payment), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_financeiro_payment_path(payment), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", financeiro_payment_path(payment), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>

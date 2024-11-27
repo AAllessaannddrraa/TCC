@@ -1,9 +1,10 @@
-<h1>Lista de Pagamentos</h1>
-<table>
+<h1>Pagamentos</h1>
+<%= link_to "Novo Pagamento", new_pagamento_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Valor</th>
-      <th>Status</th>
+      <th>Data</th>
       <th>Cliente</th>
       <th>Serviço</th>
       <th>Ações</th>
@@ -13,15 +14,15 @@
     <% @pagamentos.each do |pagamento| %>
       <tr>
         <td><%= number_to_currency(pagamento.valor) %></td>
-        <td><%= pagamento.status.humanize %></td>
+        <td><%= pagamento.data %></td>
         <td><%= pagamento.cliente.nome %></td>
         <td><%= pagamento.servico.nome %></td>
         <td>
-          <%= link_to 'Ver', pagamento_path(pagamento) %>
-          <%= link_to 'Remover', pagamento_path(pagamento), method: :delete, data: { confirm: 'Tem certeza?' } %>
+          <%= link_to "Mostrar", pagamento_path(pagamento), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_pagamento_path(pagamento), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", pagamento_path(pagamento), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Pagamento', new_pagamento_path, class: 'btn btn-primary' %>

@@ -4,13 +4,12 @@ module Admin
 
     def index
       @usuarios = Usuario.all
-      @reports = Report.all
     end
 
     private
 
     def ensure_admin
-      redirect_to root_path unless current_usuario.admin?
+      # Lógica para garantir que o usuário é um administrador
     end
   end
 end

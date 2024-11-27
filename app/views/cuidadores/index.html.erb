@@ -1,26 +1,26 @@
-<div class="container mt-4">
-  <h1 class="mb-4">Lista de Cuidadores</h1>
-  <table class="table table-striped">
-    <thead class="table-dark">
+<h1>Cuidadores</h1>
+<%= link_to "Novo Cuidador", new_cuidador_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cuidadores.each do |cuidador| %>
       <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Ações</th>
+        <td><%= cuidador.nome %></td>
+        <td><%= cuidador.email %></td>
+        <td><%= cuidador.telefone %></td>
+        <td>
+          <%= link_to "Mostrar", cuidador_path(cuidador), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_cuidador_path(cuidador), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", cuidador_path(cuidador), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% @cuidadores.each do |cuidador| %>
-        <tr>
-          <td><%= cuidador.nome %></td>
-          <td><%= cuidador.email %></td>
-          <td>
-            <%= link_to 'Mostrar', cuidador, class: 'btn btn-info btn-sm' %>
-            <%= link_to 'Editar', edit_cuidador_path(cuidador), class: 'btn btn-warning btn-sm' %>
-            <%= link_to 'Excluir', cuidador, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger btn-sm' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to 'Novo Cuidador', new_cuidador_path, class: 'btn btn-success' %>
-</div>
+    <% end %>
+  </tbody>
+</table>

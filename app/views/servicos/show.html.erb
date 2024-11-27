@@ -1,6 +1,5 @@
-<h1>Detalhes do Serviço</h1>
+<h1><%= @servico.nome %></h1>
 
-<p><strong>Nome:</strong> <%= @servico.nome %></p>
 <p><strong>Descrição:</strong> <%= @servico.descricao %></p>
 <p><strong>Preço:</strong> <%= number_to_currency(@servico.preco) %></p>
 <p><strong>Tipo de Serviço:</strong> <%= @servico.tipo_servico.nome %></p>
@@ -18,4 +17,6 @@
   <%= link_to 'Desativar', desativar_servico_path(@servico), method: :patch, class: 'btn btn-danger' %>
 <% end %>
 
-<%= link_to 'Voltar', servicos_path, class: 'btn btn-secondary' %>
+<%= link_to 'Editar', edit_servico_path(@servico), class: "btn btn-warning" %>
+<%= link_to 'Voltar', servicos_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', servico_path(@servico), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>

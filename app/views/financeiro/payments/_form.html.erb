@@ -1,0 +1,25 @@
+<%= form_with(model: @payment, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :cliente_id, "Cliente", class: "form-label" %>
+    <%= form.collection_select :cliente_id, Cliente.all, :id, :nome, {}, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :valor, "Valor", class: "form-label" %>
+    <%= form.number_field :valor, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :data, "Data", class: "form-label" %>
+    <%= form.date_select :data, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status, "Status", class: "form-label" %>
+    <%= form.select :status, Payment.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.submit "Salvar", class: "btn btn-success" %>
+  </div>
+<% end %>

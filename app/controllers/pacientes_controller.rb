@@ -5,7 +5,7 @@ class PacientesController < ApplicationController
   before_action :authorize_cliente_or_admin, only: %i[new create edit update destroy]
 
   def index
-    @pacientes = current_usuario.cliente? ? current_usuario.cliente.pacientes : Paciente.all
+    @pacientes = Paciente.all
   end
 
   def show; end
@@ -16,11 +16,10 @@ class PacientesController < ApplicationController
 
   def create
     @paciente = Paciente.new(paciente_params)
-    @paciente.cliente = current_usuario.cliente if current_usuario.cliente?
     if @paciente.save
-      redirect_to @paciente, notice: 'Paciente cadastrado com sucesso.'
+      redirect_to @paciente, notice: 'Paciente criado com sucesso.'
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -30,13 +29,13 @@ class PacientesController < ApplicationController
     if @paciente.update(paciente_params)
       redirect_to @paciente, notice: 'Paciente atualizado com sucesso.'
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
   def destroy
     @paciente.destroy
-    redirect_to pacientes_url, notice: 'Paciente removido com sucesso.'
+    redirect_to pacientes_url, notice: 'Paciente deletado com sucesso.'
   end
 
   private
@@ -46,7 +45,7 @@ class PacientesController < ApplicationController
   end
 
   def paciente_params
-    params.require(:paciente).permit(:nome, :idade, :condicoes, :estado_saude, :cliente_id)
+    params.require(:paciente).permit(:nome, :idade, :endereco)
   end
 
   def authorize_cliente_or_admin

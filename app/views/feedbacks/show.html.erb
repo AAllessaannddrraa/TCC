@@ -1,0 +1,10 @@
+<h1>Feedback</h1>
+<p><strong>Comentário:</strong> <%= @feedback.comentario %></p>
+<p><strong>Avaliação:</strong> <%= @feedback.avaliacao %></p>
+<p><strong>Usuário:</strong> <%= @feedback.usuario.nome %></p>
+<p><strong>Serviço:</strong> <%= @feedback.servico.nome %></p>
+
+<%= link_to 'Editar', edit_feedback_path(@feedback), class: "btn btn-warning" %>
+<%= link_to 'Voltar', feedbacks_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', feedback_path(@feedback), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>
+

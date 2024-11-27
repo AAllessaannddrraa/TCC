@@ -1,25 +1,20 @@
-<%= form_with(model: cliente, local: true) do |f| %>
-  <div>
-    <%= f.label :nome %>
-    <%= f.text_field :nome %>
+<%= form_with(model: @cliente, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :nome, "Nome", class: "form-label" %>
+    <%= form.text_field :nome, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+  <div class="form-group">
+    <%= form.label :email, "Email", class: "form-label" %>
+    <%= form.email_field :email, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :numero_contato %>
-    <%= f.text_field :numero_contato %>
+  <div class="form-group">
+    <%= form.label :telefone, "Telefone", class: "form-label" %>
+    <%= form.text_field :telefone, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :status %>
-    <%= f.select :status, Cliente.statuses.keys.map { |key| [key.humanize, key] } %>
-  </div>
-
-  <div>
-    <%= f.submit 'Salvar' %>
+  <div class="form-group mt-3">
+    <%= form.submit "Salvar", class: "btn btn-success" %>
   </div>
 <% end %>

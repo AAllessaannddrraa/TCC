@@ -1,27 +1,28 @@
-<h1>Lista de Feedbacks</h1>
-<table>
+<h1>Feedbacks</h1>
+<%= link_to "Novo Feedback", new_feedback_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Avaliação</th>
       <th>Comentário</th>
-      <th>Cuidador</th>
-      <th>Cliente</th>
+      <th>Avaliação</th>
+      <th>Usuário</th>
+      <th>Serviço</th>
       <th>Ações</th>
     </tr>
   </thead>
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
-        <td><%= feedback.avaliacao %></td>
         <td><%= feedback.comentario %></td>
-        <td><%= feedback.cuidador.nome %></td>
-        <td><%= feedback.cliente.nome %></td>
+        <td><%= feedback.avaliacao %></td>
+        <td><%= feedback.usuario.nome %></td>
+        <td><%= feedback.servico.nome %></td>
         <td>
-          <%= link_to 'Ver', feedback_path(feedback) %>
-          <%= link_to 'Remover', feedback_path(feedback), method: :delete, data: { confirm: 'Tem certeza?' } %>
+          <%= link_to "Mostrar", feedback_path(feedback), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_feedback_path(feedback), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", feedback_path(feedback), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Feedback', new_feedback_path, class: 'btn btn-primary' %>

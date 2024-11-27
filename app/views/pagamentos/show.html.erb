@@ -1,0 +1,9 @@
+<h1>Pagamento</h1>
+<p><strong>Valor:</strong> <%= number_to_currency(@pagamento.valor) %></p>
+<p><strong>Data:</strong> <%= @pagamento.data %></p>
+<p><strong>Cliente:</strong> <%= @pagamento.cliente.nome %></p>
+<p><strong>Serviço:</strong> <%= @pagamento.servico.nome %></p>
+
+<%= link_to 'Editar', edit_pagamento_path(@pagamento), class: "btn btn-warning" %>
+<%= link_to 'Voltar', pagamentos_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', pagamento_path(@pagamento), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>

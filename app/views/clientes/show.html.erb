@@ -1,9 +1,6 @@
-<h1>Detalhes do Cliente</h1>
-
-<p><strong>Nome:</strong> <%= @cliente.nome %></p>
+<h1><%= @cliente.nome %></h1>
 <p><strong>Email:</strong> <%= @cliente.email %></p>
-<p><strong>Contato:</strong> <%= @cliente.numero_contato %></p>
-<p><strong>Status:</strong> <%= @cliente.status.humanize %></p>
-
-<%= link_to 'Editar', edit_cliente_path(@cliente), class: 'btn btn-primary' if current_usuario.admin? || current_usuario.rh? %>
-<%= link_to 'Voltar', clientes_path, class: 'btn btn-secondary' %>
+<p><strong>Telefone:</strong> <%= @cliente.telefone %></p>
+<%= link_to 'Editar', edit_cliente_path(@cliente), class: "btn btn-warning" %>
+<%= link_to 'Voltar', clientes_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', cliente_path(@cliente), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>

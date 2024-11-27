@@ -45,5 +45,5 @@ class Usuario < ApplicationRecord
   has_secure_password
 
   enum role: { admin: 0, rh: 1, supervisora: 2, cliente: 3, financeiro: 4 }
-  enum status: { ativo: 0, inativo: 1, cadastro_em_andamento: 2, aprovado: 3, reprovado: 4 }
+  enum status: { cadastrado: 0, ativo: 1, inativo: 2 }
 end

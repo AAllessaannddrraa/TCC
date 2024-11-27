@@ -1,9 +1,6 @@
-<h1>Detalhes do Paciente</h1>
-
-<p><strong>Nome:</strong> <%= @paciente.nome %></p>
+<h1><%= @paciente.nome %></h1>
 <p><strong>Idade:</strong> <%= @paciente.idade %></p>
-<p><strong>Condições:</strong> <%= @paciente.condicoes %></p>
-<p><strong>Estado de Saúde:</strong> <%= @paciente.estado_saude.humanize %></p>
-
-<%= link_to 'Editar', edit_paciente_path(@paciente), class: 'btn btn-primary' if current_usuario.admin? || current_usuario.cliente? %>
-<%= link_to 'Voltar', pacientes_path, class: 'btn btn-secondary' %>
+<p><strong>Endereço:</strong> <%= @paciente.endereco %></p>
+<%= link_to 'Editar', edit_paciente_path(@paciente), class: "btn btn-warning" %>
+<%= link_to 'Voltar', pacientes_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', paciente_path(@paciente), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>

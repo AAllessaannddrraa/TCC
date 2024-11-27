@@ -1,21 +1,22 @@
 Rails.application.routes.draw do
+  # Rota principal
   root 'pages#home'
 
-  devise_for :usuarios
-
-  devise_scope :usuario do
-    get '/login', to: 'devise/sessions#new'
-  end
+  # Devise
+  devise_for :usuarios, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    sign_up: 'register'
+  }
 
   # Rota para "/adm"
   get '/adm', to: redirect('/admin/dashboard')
 
-  # Namespace for administrative actions
+  # Namespaces
   namespace :admin do
     resources :usuarios, only: [:index, :show, :destroy]
     resources :reports, only: [:index, :show]
     get 'dashboard', to: 'dashboard#index'
-    resources :cuidadores, only: [:index]
   end
 
   namespace :rh do
@@ -26,11 +27,16 @@ Rails.application.routes.draw do
     resources :apoios, only: [:index, :update]
   end
 
-  resources :servicos, only: [:index, :show, :create, :update]
-  resources :usuarios, only: [:show, :update]
+  # Recursos Globais
+  resources :cuidadores, only: [:index, :show]
+  resources :servicos
+  resources :usuarios
   resources :clientes
   resources :pacientes
   resources :turnos
   resources :feedbacks
   resources :pagamentos
+
+  # Rota para 404
+  match '*unmatched', to: 'application#not_found', via: :all
 end

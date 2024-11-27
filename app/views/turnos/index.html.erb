@@ -1,26 +1,30 @@
-<h1>Lista de Turnos</h1>
-<table>
+<h1>Turnos</h1>
+<%= link_to "Novo Turno", new_turno_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Data</th>
-      <th>Hora Início</th>
-      <th>Hora Fim</th>
+      <th>Data Início</th>
+      <th>Data Fim</th>
+      <th>Status</th>
+      <th>Cuidador</th>
+      <th>Paciente</th>
       <th>Ações</th>
     </tr>
   </thead>
   <tbody>
     <% @turnos.each do |turno| %>
       <tr>
-        <td><%= turno.data %></td>
-        <td><%= turno.hora_inicio %></td>
-        <td><%= turno.hora_fim %></td>
+        <td><%= turno.data_inicio %></td>
+        <td><%= turno.data_fim %></td>
+        <td><%= turno.status %></td>
+        <td><%= turno.cuidador.nome %></td>
+        <td><%= turno.paciente.nome %></td>
         <td>
-          <%= link_to 'Mostrar', turno %>
-          <%= link_to 'Editar', edit_turno_path(turno) %>
-          <%= link_to 'Excluir', turno, method: :delete, data: { confirm: 'Tem certeza?' } %>
+          <%= link_to "Mostrar", turno_path(turno), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_turno_path(turno), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", turno_path(turno), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Turno', new_turno_path %>

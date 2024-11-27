@@ -1,11 +1,11 @@
-<h1>Lista de Pacientes</h1>
-<table>
+<h1>Pacientes</h1>
+<%= link_to "Novo Paciente", new_paciente_path, class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Nome</th>
       <th>Idade</th>
-      <th>Condições</th>
-      <th>Estado de Saúde</th>
+      <th>Endereço</th>
       <th>Ações</th>
     </tr>
   </thead>
@@ -14,15 +14,13 @@
       <tr>
         <td><%= paciente.nome %></td>
         <td><%= paciente.idade %></td>
-        <td><%= paciente.condicoes %></td>
-        <td><%= paciente.estado_saude.humanize %></td>
+        <td><%= paciente.endereco %></td>
         <td>
-          <%= link_to 'Ver', paciente_path(paciente) %>
-          <%= link_to 'Editar', edit_paciente_path(paciente) if current_usuario.admin? || current_usuario.cliente? %>
-          <%= link_to 'Remover', paciente_path(paciente), method: :delete, data: { confirm: 'Tem certeza?' } if current_usuario.admin? %>
+          <%= link_to "Mostrar", paciente_path(paciente), class: "btn btn-sm btn-info" %>
+          <%= link_to "Editar", edit_paciente_path(paciente), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Deletar", paciente_path(paciente), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: "Tem certeza?" } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Novo Paciente', new_paciente_path, class: 'btn btn-primary' %>

@@ -1,3 +1,3 @@
-<h1><%= action_name == 'new' ? 'Novo Turno' : 'Editar Turno' %></h1>
+<h1>Editar Turno</h1>
 <%= render 'form', turno: @turno %>
-<%= link_to 'Voltar', turnos_path %>
+<%= link_to 'Voltar', turnos_path, class: "btn btn-secondary" %>

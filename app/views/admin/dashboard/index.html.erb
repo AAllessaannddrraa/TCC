@@ -1,45 +1,40 @@
-<h1>Admin Dashboard</h1>
-<p>Bem-vindo ao painel administrativo.</p>
+<h1 class="text-center">Dashboard Administrativo</h1>
 
-<h2>Usuários</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @usuarios.each do |usuario| %>
-      <tr>
-        <td><%= usuario.nome %></td>
-        <td><%= usuario.email %></td>
-        <td>
-          <%= link_to 'Ver', admin_usuario_path(usuario) %>
-          <%= link_to 'Deletar', admin_usuario_path(usuario), method: :delete, data: { confirm: 'Tem certeza?' } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<h2>Relatórios</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reports.each do |report| %>
-      <tr>
-        <td><%= report.titulo %></td>
-        <td>
-          <%= link_to 'Ver', admin_report_path(report) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <h5 class="card-title">Total de Solicitações</h5>
+          <p class="card-text"><%= @solicitations_by_status.values.sum %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Pagamentos Processados</h5>
+          <p class="card-text"><%= @processed_payments_count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Clientes Ativos</h5>
+          <p class="card-text"><%= @active_clients_count %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body">
+          <h5 class="card-title">Serviços Pendentes</h5>
+          <p class="card-text"><%= @pending_services_count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

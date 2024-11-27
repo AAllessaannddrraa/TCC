@@ -1,25 +1,25 @@
-<%= form_with(model: feedback, local: true) do |f| %>
-  <div>
-    <%= f.label :avaliacao %>
-    <%= f.number_field :avaliacao, in: 1..5 %>
+<%= form_with(model: @feedback, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :comentario, "Comentário", class: "form-label" %>
+    <%= form.text_area :comentario, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :comentario %>
-    <%= f.text_area :comentario %>
+  <div class="form-group">
+    <%= form.label :avaliacao, "Avaliação", class: "form-label" %>
+    <%= form.number_field :avaliacao, in: 1..5, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :cuidador_id, 'Cuidador' %>
-    <%= f.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
+  <div class="form-group">
+    <%= form.label :usuario_id, "Usuário", class: "form-label" %>
+    <%= form.collection_select :usuario_id, Usuario.all, :id, :nome, {}, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :cliente_id, 'Cliente' %>
-    <%= f.collection_select :cliente_id, Usuario.clientes, :id, :nome %>
+  <div class="form-group">
+    <%= form.label :servico_id, "Serviço", class: "form-label" %>
+    <%= form.collection_select :servico_id, Servico.all, :id, :nome, {}, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.submit 'Salvar' %>
+  <div class="form-group mt-3">
+    <%= form.submit "Salvar", class: "btn btn-success" %>
   </div>
 <% end %>

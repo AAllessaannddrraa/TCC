@@ -1,0 +1,6 @@
+<h1><%= @cuidador.nome %></h1>
+<p><strong>Email:</strong> <%= @cuidador.email %></p>
+<p><strong>Telefone:</strong> <%= @cuidador.telefone %></p>
+<%= link_to 'Editar', edit_cuidador_path(@cuidador), class: "btn btn-warning" %>
+<%= link_to 'Voltar', cuidadores_path, class: "btn btn-secondary" %>
+<%= link_to 'Deletar', cuidador_path(@cuidador), method: :delete, class: "btn btn-danger", data: { confirm: "Tem certeza?" } %>

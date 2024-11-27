@@ -1,41 +1,30 @@
-<%= form_with(model: turno, local: true) do |f| %>
-  <% if turno.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(turno.errors.count, "erro") %> proibiu este turno de ser salvo:</h2>
-      <ul>
-        <% turno.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= f.label :data_inicio %>
-    <%= f.datetime_select :data_inicio %>
+<%= form_with(model: @turno, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :data_inicio, "Data Início", class: "form-label" %>
+    <%= form.datetime_select :data_inicio, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :data_fim %>
-    <%= f.datetime_select :data_fim %>
+  <div class="form-group">
+    <%= form.label :data_fim, "Data Fim", class: "form-label" %>
+    <%= form.datetime_select :data_fim, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :status %>
-    <%= f.select :status, Turno.statuses.keys.map { |key| [key.humanize, key] } %>
+  <div class="form-group">
+    <%= form.label :status, "Status", class: "form-label" %>
+    <%= form.select :status, Turno.statuses.keys.map { |status| [status.humanize, status] }, {}, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :cuidador_id, 'Cuidador' %>
-    <%= f.collection_select :cuidador_id, Cuidador.all, :id, :nome %>
+  <div class="form-group">
+    <%= form.label :cuidador_id, "Cuidador", class: "form-label" %>
+    <%= form.collection_select :cuidador_id, Cuidador.all, :id, :nome, {}, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :servico_id, 'Serviço' %>
-    <%= f.collection_select :servico_id, Servico.all, :id, :nome %>
+  <div class="form-group">
+    <%= form.label :paciente_id, "Paciente", class: "form-label" %>
+    <%= form.collection_select :paciente_id, Paciente.all, :id, :nome, {}, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.submit 'Salvar' %>
+  <div class="form-group mt-3">
+    <%= form.submit "Salvar", class: "btn btn-success" %>
   </div>
 <% end %>
